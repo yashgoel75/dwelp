@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-
 export const metadata: Metadata = {
-  title: "Dwelp.",
-  description: "Digital Records on the Blockchain",
+  title: "Dwelp - Digital Records on the Blockchain",
+  description: "",
 };
 
 export default function RootLayout({
@@ -15,6 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
+        className={`antialiased`}
       >
         {children}
       </body>
