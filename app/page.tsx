@@ -4,8 +4,10 @@ import Header from "./Header/page";
 export default function Home() {
   return (
     <>
-      <Header></Header>
-      Welcome to dwelp.
+      <div className="min-h-screen">
+        <div className="mb-3"><Header></Header></div>
+        <div className="w-11/12 m-auto text-xl">Welcome to dwelp.</div>
+      </div>
     </>
   );
 }
