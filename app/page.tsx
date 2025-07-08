@@ -29,23 +29,30 @@ export default function Home() {
   }, [admin, address, isFetched, isConnected]);
 
   useEffect(() => {
-    if (isAdmin && isConnected && isFetched) {
-      router.push("/Dashboard");
-    }
+    const timeout = setTimeout(() => {
+      if (isAdmin && isConnected && isFetched) {
+        router.push("/Dashboard");
+      }
+    }, 1000);
+    return () => clearTimeout(timeout);
   }, [isAdmin]);
 
   return (
     <>
       <div className="min-h-screen flex flex-col justify-center items-center">
-        <Image src={logo} width={400} alt="Dwelp."></Image>
+        <Image src={logo} width={400} alt="dwelp. x VIPS"></Image>
         <div className="shadow-lg rounded-[40px]">
-          <ConnectButton label="Continue to Vivekananda Institute of Professional Studies" />
+          <ConnectButton
+            label="Continue to Vivekananda Institute of Professional Studies"
+            chainStatus={"icon"}
+            accountStatus={"address"}
+          />
         </div>
 
         {isFetched &&
           isConnected &&
           (!isAdmin ? (
-            <div className="flex justify-center items-center mt-7 px-3 py-1 rounded-lg bg-red-400 text-white text-lg font-bold">
+            <div className="flex justify-center items-center mt-7 px-3 py-1 rounded-lg bg-red-500 text-white text-lg font-bold">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="22px"
