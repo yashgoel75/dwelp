@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import App from "./providers";
 
 export const metadata: Metadata = {
   title: "Dwelp - Digital Records on the Blockchain",
@@ -13,10 +14,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`antialiased`}
-      >
-        {children}
+      <body className={`antialiased`}>
+        <App>{children}</App>
       </body>
     </html>
   );

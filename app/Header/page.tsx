@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <>
       <div className="flex justify-center items-center gap-4 py-3">
-        <Image className="my-1 px-4 rounded-[25px] bg-blue-300" src={logo} height={100} alt="dwelp Logo"></Image>
+        <Image className="my-1 px-4 rounded-[25px]" src={logo} height={110} alt="dwelp Logo"></Image>
       </div>
     </>
   );
