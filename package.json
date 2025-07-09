@@ -11,7 +11,11 @@
   "dependencies": {
     "@rainbow-me/rainbowkit": "^2.2.8",
     "@tanstack/react-query": "^5.81.5",
+    "crypto": "^1.0.1",
+    "fs": "^0.0.1-security",
     "next": "15.3.5",
+    "path": "^0.12.7",
+    "pdf-lib": "^1.17.1",
     "pinata": "^2.4.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
