@@ -8,6 +8,7 @@ import { useReadContract, useAccount } from "wagmi";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import Link from "next/link";
 
 export default function Home() {
   const router = useRouter();
@@ -41,12 +42,22 @@ export default function Home() {
     <>
       <div className="min-h-screen flex flex-col justify-center items-center">
         <Image src={logo} width={400} alt="dwelp. x VIPS"></Image>
-        <div className="shadow-lg rounded-[40px]">
-          <ConnectButton
-            label="Continue to Vivekananda Institute of Professional Studies"
-            chainStatus={"icon"}
-            accountStatus={"address"}
-          />
+        <div className="flex gap-6 items-center justify-center">
+          <div className="shadow-lg rounded-[40px]">
+            <ConnectButton
+              label="Continue as Admin"
+              chainStatus={"icon"}
+              accountStatus={"address"}
+            />
+          </div>
+          <div
+            onClick={() => {
+              router.push("/Student/Dashboard");
+            }}
+            className="px-3 py-2 rounded-xl shadow-lg bg-orange-500 text-white font-bold hover:cursor-pointer hover:scale-105 transition"
+          >
+            Continue as Student
+          </div>
         </div>
 
         {isFetched &&

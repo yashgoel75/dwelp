@@ -11,7 +11,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 const Header = () => {
   const router = useRouter();
   const { address, isConnected } = useAccount();
-  const DWELP_ADDRESS = "0x7ca3d511A851a375f8f5e828B5094AcCcC5E587C";
+  const DWELP_ADDRESS = "0x46bfeE41540a0a88030FCbc7287563BBFbEF8a7d";
   const { data: admin, isFetched } = useReadContract({
     ...dwelpContractConfig,
     functionName: "admin",

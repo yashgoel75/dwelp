@@ -26,7 +26,7 @@ const Dashboard = () => {
         alert("No file selected");
         return;
       }
-
+      setUrl("Uploading... Please Wait");
       setUploading(true);
       const data = new FormData();
       data.set("file", file);
@@ -46,10 +46,14 @@ const Dashboard = () => {
   };
 
   const [hash, setHash] = useState("");
+  const [signature, setSignature] = useState("");
+
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
     const file = files[0];
+    setFile(file);
+    setUrl("");
 
     const arrayBuffer = await file.arrayBuffer();
 
@@ -70,8 +74,8 @@ const Dashboard = () => {
     });
 
     const data = await res.json();
-    console.log("Signature (base64):", data.signature); 
-
+    console.log("Signature (base64):", data.signature);
+    setSignature(data.signature);
     console.log("SHA-256 hash of uploaded PDF:", hashHex);
   };
 
@@ -109,7 +113,7 @@ const Dashboard = () => {
               className="hidden"
               onChange={handleFileChange}
             ></input>
-            <div className="w-9/10 m-auto h-[500px] border border-1 border-red-100 shadow-lg rounded-lg mt-5">
+            <div className="w-9/10 m-auto h-[530px] border border-1 border-red-100 shadow-lg rounded-lg mt-5">
               <div className="px-3 py-2 text-center text-lg font-bold">
                 Circulate Notice
               </div>
@@ -151,7 +155,7 @@ const Dashboard = () => {
               <div>
                 <button
                   onClick={uploadFile}
-                  className={`flex justify-center items-center px-3 py-1 rounded-md bg-red-400 text-white font-bold mt-2 w-fit m-auto hover:bg-red-500 transition ${
+                  className={`flex justify-center items-center px-3 py-1 outline-red-400 rounded-md bg-red-400 text-white font-bold mt-2 w-fit m-auto hover:bg-red-500 transition ${
                     uploading
                       ? "opacity-50 hover:cursor-not-allowed"
                       : "hover:cursor-pointer"
@@ -160,32 +164,155 @@ const Dashboard = () => {
                   {uploading ? "Uploading" : "Upload"}
                 </button>
               </div>
-              {url && (
-                <object
-                  className="pdf"
-                  data={url}
-                  width="800"
-                  height="500"
-                ></object>
-              )}
 
               <div className="w-95/100 mt-3 m-auto">
                 <label>
                   <strong>Hash of the File</strong>
                 </label>
                 <br></br>
-                <input
-                  disabled
-                  className="rounded-md border-1 outline-red-400 outline-offset-1 px-3 py-1 border-red-400 w-full hover:cursor-not-allowed"
-                  value={hash}
-                ></input>
+                <div className="flex justify-center items-center border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md">
+                  <input
+                    readOnly
+                    disabled
+                    placeholder="Select a file to generate the hash of the file"
+                    className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full"
+                    value={hash}
+                  />
+                  <button
+                    onClick={(e) => {
+                      navigator.clipboard.writeText(hash);
+
+                      const button = e.currentTarget;
+                      const svg = button.querySelector("svg");
+
+                      if (!svg) return;
+
+                      svg.innerHTML = `
+      <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/>
+    `;
+
+                      setTimeout(() => {
+                        svg.innerHTML = `
+        <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 
+        23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 
+        33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 
+        0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
+      `;
+                      }, 2000);
+                    }}
+                    className="hover:scale-105 transition mr-1"
+                    title="Copy to clipboard"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="20px"
+                      viewBox="0 -960 960 960"
+                      width="20px"
+                      fill="#992B15"
+                    >
+                      <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
+                    </svg>
+                  </button>
+                </div>
               </div>
               <div className="w-95/100 mt-3 m-auto">
                 <label>
-                  <strong>CID</strong>
+                  <strong>Digital Signature of the File</strong>
                 </label>
                 <br></br>
-                <input className="rounded-md border-1 outline-red-400 outline-offset-1 px-3 py-1 border-red-400 w-full"></input>
+                <div className="flex border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md">
+                  <input
+                    readOnly
+                    disabled
+                    placeholder="Select a file to sign the hash"
+                    className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full"
+                    value={signature}
+                  ></input>
+                  <button
+                    onClick={(e) => {
+                      navigator.clipboard.writeText(signature);
+
+                      const button = e.currentTarget;
+                      const svg = button.querySelector("svg");
+
+                      if (!svg) return;
+
+                      svg.innerHTML = `
+      <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/>
+    `;
+
+                      setTimeout(() => {
+                        svg.innerHTML = `
+        <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 
+        23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 
+        33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 
+        0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
+      `;
+                      }, 2000);
+                    }}
+                    className="hover:scale-105 transition mr-1"
+                    title="Copy to clipboard"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="20px"
+                      viewBox="0 -960 960 960"
+                      width="20px"
+                      fill="#992B15"
+                    >
+                      <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div className="w-95/100 mt-3 m-auto">
+                <label>
+                  <strong>IPFS URL of the File</strong>
+                </label>
+                <br></br>
+                <div className="flex border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md">
+                  <input
+                    readOnly
+                    className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full"
+                    placeholder="Upload the file to generate the IPFS URL"
+                    value={url}
+                  ></input>
+                  <button
+                    onClick={(e) => {
+                      navigator.clipboard.writeText(url);
+
+                      const button = e.currentTarget;
+                      const svg = button.querySelector("svg");
+
+                      if (!svg) return;
+
+                      svg.innerHTML = `
+      <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/>
+    `;
+
+                      setTimeout(() => {
+                        svg.innerHTML = `
+        <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 
+        23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 
+        33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 
+        0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
+      `;
+                      }, 2000);
+                    }}
+                    className="hover:scale-105 transition mr-1"
+                    title="Copy to clipboard"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="20px"
+                      viewBox="0 -960 960 960"
+                      width="20px"
+                      fill="#992B15"
+                    >
+                      <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
           </>
