@@ -16,7 +16,8 @@ export async function POST(req: NextRequest) {
     const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
 
     const signer = crypto.createSign('SHA256');
-    signer.update(Buffer.from(hash, 'hex'));
+    const hex = hash.startsWith("0x") ? hash.slice(2) : hash;
+    signer.update(Buffer.from(hex, 'hex'));
     signer.end();
 
     const signature = signer.sign({

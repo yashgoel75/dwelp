@@ -16,7 +16,8 @@ export async function POST(req: NextRequest) {
     const publicKey = fs.readFileSync(publicKeyPath, 'utf8');
 
     const verifier = crypto.createVerify('SHA256');
-    verifier.update(Buffer.from(hash, 'hex'));
+    const hex = hash.startsWith("0x") ? hash.slice(2) : hash;
+    verifier.update(Buffer.from(hex, 'hex'));
     verifier.end();
 
     const isValid = verifier.verify(

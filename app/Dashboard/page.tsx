@@ -2,8 +2,19 @@
 import Header from "../Header/page";
 import { useState } from "react";
 import { useRef } from "react";
+import { fromHex } from 'viem';
+
+import {
+  useAccount,
+  useWriteContract,
+} from "wagmi";
+import { dwelpAbi } from "../constants/dwelpAbi";
+import { publicClient } from "@/utils/viemConfig";
 
 const Dashboard = () => {
+  const { writeContractAsync } = useWriteContract();
+  const DWELP_ADDRESS = "0x7ca3d511a851a375f8f5e828b5094acccc5e587c";
+  const { address } = useAccount();
   const [circulateButton, setCirculateButton] = useState(true);
   const handleCirculateButton = () => {
     setEmailButton(false);
@@ -38,6 +49,22 @@ const Dashboard = () => {
       console.log("CID is: ", signedUrl);
       setUrl(signedUrl);
       setUploading(false);
+
+      console.log();
+      const writeContractHash = await writeContractAsync({
+        address: DWELP_ADDRESS,
+        abi: dwelpAbi,
+        functionName: "addFile",
+        args: [hash, signature, url],
+        account: address,
+      });
+
+      console.log("Transaction hash:", writeContractHash);
+
+      const receipt = await publicClient.waitForTransactionReceipt({
+        hash: writeContractHash,
+      });
+      console.log(receipt);
     } catch (e) {
       console.log(e);
       setUploading(false);
@@ -60,9 +87,8 @@ const Dashboard = () => {
     const hashBuffer = await crypto.subtle.digest("SHA-256", arrayBuffer);
 
     const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray
-      .map((b) => b.toString(16).padStart(2, "0"))
-      .join("");
+    const hashHex =
+      "0x" + hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
     setHash(hashHex);
 
     const res = await fetch("/api/sign-hash", {
@@ -134,7 +160,11 @@ const Dashboard = () => {
                     >
                       <path d="M240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z" />
                     </svg>
-                    {file.name}
+                    {file.name.length > 30
+                      ? file.name.slice(0, 20) +
+                        "..." +
+                        file.name.slice(file.name.length - 10)
+                      : file.name}
                   </>
                 ) : (
                   <>

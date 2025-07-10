@@ -2,8 +2,11 @@
 
 import Header from "../Header/page";
 import { useState, useRef } from "react";
+import { useReadContract } from "wagmi";
+import { dwelpAbi } from "@/app/constants/dwelpAbi";
 
 const Dashboard = () => {
+  const DWELP_ADDRESS = "0x7ca3d511a851a375f8f5e828b5094acccc5e587c";
   const [verifyCirculateButton, setVerifyCirculateButton] = useState(true);
   const handleVerifyCirculateButton = () => {
     setVerifyEmailButton(false);
@@ -29,20 +32,36 @@ const Dashboard = () => {
     const hashBuffer = await crypto.subtle.digest("SHA-256", arrayBuffer);
 
     const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray
-      .map((b) => b.toString(16).padStart(2, "0"))
-      .join("");
+    const hashHex =
+      "0x" + hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+    console.log("Hash in Function: ", hashHex);
     setHash(hashHex);
   };
-  const verifyFile = async (hash: string, signature: string) => {
-    const res = await fetch("/api/verify-signature", {
+  console.log("Hash: ", hash);
+  const { data: fileData, isLoading: isSignatureLoading } = useReadContract({
+    abi: dwelpAbi,
+    address: DWELP_ADDRESS,
+    functionName: "getFile",
+    args: [hash],
+    chainId: 11155111,
+  });
+  console.log("Result:", fileData);
+  if (!isSignatureLoading && !fileData) {
+    console.log("Verification Failed");
+  }
+  const signature = Array.isArray(fileData) ? fileData[0] : undefined;
+  console.log("Signature:", signature);
+
+  const verifyFile = async (hash: string) => {
+    setHash(hash);
+    const res = await fetch("/api/verify-hash", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ hash, signature }),
     });
-
+    console.log("Signature:", signature);
     const result = await res.json();
     console.log("Signature valid?", result.valid);
   };
@@ -109,7 +128,11 @@ const Dashboard = () => {
                     >
                       <path d="M240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z" />
                     </svg>
-                    {file.name}
+                    {file.name.length > 30
+                      ? file.name.slice(0, 20) +
+                        "..." +
+                        file.name.slice(file.name.length - 10)
+                      : file.name}
                   </>
                 ) : (
                   <>
@@ -129,7 +152,18 @@ const Dashboard = () => {
               </div>
               <div>
                 <button
-                  className={`flex justify-center items-center px-3 py-1 outline-red-400 rounded-md bg-red-400 text-white font-bold mt-2 w-fit m-auto hover:bg-red-500 transition ${"hover:cursor-pointer"}`}
+                  onClick={() => {
+                    if (!hash) {
+                      alert("Please upload a file first.");
+                      return;
+                    }
+                    if (!signature || isSignatureLoading) {
+                      alert("Signature not loaded yet. Please wait a moment.");
+                      return;
+                    }
+                    verifyFile(hash);
+                  }}
+                  className={`flex justify-center items-center px-3 py-1 outline-red-400 rounded-md bg-red-400 text-white font-bold mt-2 w-fit m-auto hover:bg-red-500 transition`}
                 >
                   {"Verify"}
                 </button>

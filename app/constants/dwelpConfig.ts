@@ -1,5 +1,5 @@
 export const dwelpContractConfig = {
-    address: '0x7ca3d511A851a375f8f5e828B5094AcCcC5E587C',
-    chainId: 80002,
-    abi: [{ "type": "constructor", "inputs": [], "stateMutability": "nonpayable" }, { "type": "function", "name": "addFile", "inputs": [{ "name": "_hash", "type": "bytes32", "internalType": "bytes32" }, { "name": "signature", "type": "string", "internalType": "string" }, { "name": "ipfs", "type": "string", "internalType": "string" }], "outputs": [], "stateMutability": "nonpayable" }, { "type": "function", "name": "admin", "inputs": [], "outputs": [{ "name": "", "type": "address", "internalType": "address" }], "stateMutability": "view" }],
+    address: '0x7ca3d511a851a375f8f5e828b5094acccc5e587c',
+    chainId: 11155111,
+    abi: [{"type":"constructor","inputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"addFile","inputs":[{"name":"_hash","type":"bytes32","internalType":"bytes32"},{"name":"signature","type":"string","internalType":"string"},{"name":"ipfs","type":"string","internalType":"string"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"admin","inputs":[],"outputs":[{"name":"","type":"address","internalType":"address"}],"stateMutability":"view"},{"type":"function","name":"getFile","inputs":[{"name":"_hash","type":"bytes32","internalType":"bytes32"}],"outputs":[{"name":"signature","type":"string","internalType":"string"},{"name":"ipfs","type":"string","internalType":"string"}],"stateMutability":"view"}],
 } as const

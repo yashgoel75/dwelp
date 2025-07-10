@@ -11,7 +11,8 @@ import {
   optimism,
   arbitrum,
   base,
-  polygonAmoy
+  polygonAmoy,
+  sepolia
 } from 'wagmi/chains';
 import {
   QueryClientProvider,
@@ -21,7 +22,7 @@ import {
 const config = getDefaultConfig({
   appName: 'dwelp-vips',
   projectId: '6ddb8e36716fb918c3c9da9aa052cc62',
-  chains: [mainnet, polygon, polygonAmoy, optimism, arbitrum, base],
+  chains: [mainnet, polygon, polygonAmoy, optimism, arbitrum, base, sepolia],
   ssr: true,
 });
 
