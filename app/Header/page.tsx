@@ -41,7 +41,17 @@ const Header = () => {
     <>
       <div className="flex justify-between w-9/10 m-auto items-center">
         <Image src={logo} height={110} alt="dwelp. x VIPS"></Image>
-        <ConnectButton chainStatus={"none"} accountStatus={"avatar"} />
+        <div className="flex gap-4">
+          <div
+            onClick={() => {
+              router.push("/Student/Dashboard");
+            }}
+            className="px-3 py-2 rounded-xl shadow-lg bg-red-400 text-white font-bold hover:cursor-pointer hover:scale-105 transition"
+          >
+            Go to Student Dashboard
+          </div>
+          <ConnectButton chainStatus={"none"} accountStatus={"avatar"} />
+        </div>
       </div>
     </>
   );

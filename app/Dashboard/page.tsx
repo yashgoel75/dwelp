@@ -11,18 +11,18 @@ const Dashboard = () => {
   const DWELP_ADDRESS = "0x7ca3d511a851a375f8f5e828b5094acccc5e587c";
 
   const [circulateButton, setCirculateButton] = useState(true);
+  const [emailButton, setEmailButton] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [file, setFile] = useState<File>();
+  const [hashLoading, setHashLoading] = useState(false);
+  const [hash, setHash] = useState("");
+  const [signLoading, setSignLoading] = useState(false);
+  const [signature, setSignature] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [url, setUrl] = useState("");
   const [isWriteContractPending, setIsWriteContractPending] = useState(false);
   const [isWriteContractSuccess, setIsWriteContractSuccess] = useState(false);
   const [isWriteContractError, setIsWriteContractError] = useState(false);
-  const [emailButton, setEmailButton] = useState(false);
-  const [file, setFile] = useState<File>();
-  const [url, setUrl] = useState("");
-  const [uploading, setUploading] = useState(false);
-  const [hashLoading, setHashLoading] = useState(false);
-  const [signLoading, setSignLoading] = useState(false);
-  const [hash, setHash] = useState("");
-  const [signature, setSignature] = useState("");
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleCirculateButton = () => {
     setEmailButton(false);
@@ -32,6 +32,57 @@ const Dashboard = () => {
     setCirculateButton(false);
     setEmailButton(true);
   };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFile(undefined);
+    setHash("");
+    setSignature("");
+    setSignLoading(false);
+    setHashLoading(false);
+    setUrl("");
+    setIsWriteContractError(false);
+    setIsWriteContractPending(false);
+    setIsWriteContractSuccess(false);
+
+    const files = e.target.files;
+
+    if (!files || files.length === 0) return;
+    const file = files[0];
+    if (file.size > 25 * 1024 * 1024) {
+      alert("File size exceeds 25 MB limit");
+      return;
+    }
+    if (!file.name.endsWith(".pdf")) {
+      alert("Please upload a PDF file");
+      return;
+    }
+    console.log("File: ", file);
+    setFile(file);
+    setHashLoading(true);
+    setSignLoading(true);
+    setUrl("");
+
+    const arrayBuffer = await file.arrayBuffer();
+    const hashBuffer = await crypto.subtle.digest("SHA-256", arrayBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex =
+      "0x" + hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+    setHash(hashHex);
+
+    const res = await fetch("/api/sign-hash", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ hash: hashHex }),
+    });
+
+    const data = await res.json();
+    console.log("Signature (base64):", data.signature);
+    setSignature(data.signature);
+    console.log("SHA-256 hash of uploaded PDF:", hashHex);
+  };
+
   const uploadFile = async () => {
     try {
       if (!file) {
@@ -83,45 +134,6 @@ const Dashboard = () => {
     }
   };
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFile(undefined);
-    setHash("");
-    setSignature("");
-    setSignLoading(false);
-    setHashLoading(false);
-    setUrl("");
-    setIsWriteContractError(false);
-    setIsWriteContractPending(false);
-    setIsWriteContractSuccess(false);
-    const files = e.target.files;
-    if (!files || files.length === 0) return;
-    const file = files[0];
-    setFile(file);
-    setHashLoading(true);
-    setSignLoading(true);
-    setUrl("");
-
-    const arrayBuffer = await file.arrayBuffer();
-    const hashBuffer = await crypto.subtle.digest("SHA-256", arrayBuffer);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex =
-      "0x" + hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
-    setHash(hashHex);
-
-    const res = await fetch("/api/sign-hash", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ hash: hashHex }),
-    });
-
-    const data = await res.json();
-    console.log("Signature (base64):", data.signature);
-    setSignature(data.signature);
-    console.log("SHA-256 hash of uploaded PDF:", hashHex);
-  };
-
   const handleFileUrl = () => {
     url ? window.open(url, "_blank") : null;
   };
@@ -171,8 +183,8 @@ const Dashboard = () => {
                   isWriteContractError ||
                   isWriteContractPending ||
                   isWriteContractSuccess
-                    ? "h-[595px]"
-                    : "h-[560px]"
+                    ? "h-[625px]"
+                    : "h-[590px]"
                 } mb-7 border border-1 border-red-100 shadow-lg rounded-lg mt-5`}
               >
                 <div className="px-3 py-2 text-center text-lg font-bold">
@@ -216,6 +228,9 @@ const Dashboard = () => {
                       <div>Select a File</div>
                     </>
                   )}
+                </div>
+                <div className="text-center mt-1 text-red-600 font-semibold font-[Poppins]">
+                  Max file size: 25 MB
                 </div>
                 <div>
                   <button
