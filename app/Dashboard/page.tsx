@@ -1,34 +1,37 @@
 "use client";
 import Header from "../Header/page";
-import { useState } from "react";
-import { useRef } from "react";
-
+import { useState, useRef } from "react";
 import { useAccount, useWriteContract } from "wagmi";
 import { dwelpAbi } from "../constants/dwelpAbi";
 import { publicClient } from "@/utils/viemConfig";
 
 const Dashboard = () => {
+  const { address } = useAccount();
   const { writeContractAsync } = useWriteContract();
   const DWELP_ADDRESS = "0x7ca3d511a851a375f8f5e828b5094acccc5e587c";
-  const { address } = useAccount();
+
   const [circulateButton, setCirculateButton] = useState(true);
+  const [isWriteContractPending, setIsWriteContractPending] = useState(false);
+  const [isWriteContractSuccess, setIsWriteContractSuccess] = useState(false);
+  const [isWriteContractError, setIsWriteContractError] = useState(false);
+  const [emailButton, setEmailButton] = useState(false);
+  const [file, setFile] = useState<File>();
+  const [url, setUrl] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [hashLoading, setHashLoading] = useState(false);
+  const [signLoading, setSignLoading] = useState(false);
+  const [hash, setHash] = useState("");
+  const [signature, setSignature] = useState("");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
   const handleCirculateButton = () => {
     setEmailButton(false);
     setCirculateButton(true);
   };
-  const [emailButton, setEmailButton] = useState(false);
   const handleEmailButton = () => {
     setCirculateButton(false);
     setEmailButton(true);
   };
-  const [isWriteContractPending, setIsWriteContractPending] = useState(false);
-  const [isWriteContractSuccess, setIsWriteContractSuccess] = useState(false);
-  const [isWriteContractError, setIsWriteContractError] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  const [file, setFile] = useState<File>();
-  const [url, setUrl] = useState("");
-  const [uploading, setUploading] = useState(false);
   const uploadFile = async () => {
     try {
       if (!file) {
@@ -48,7 +51,6 @@ const Dashboard = () => {
       setUrl(signedUrl);
       setUploading(false);
 
-      console.log();
       const writeContractHash = await writeContractAsync({
         address: DWELP_ADDRESS,
         abi: dwelpAbi,
@@ -81,13 +83,12 @@ const Dashboard = () => {
     }
   };
 
-  const [hash, setHash] = useState("");
-  const [signature, setSignature] = useState("");
-
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(undefined);
     setHash("");
     setSignature("");
+    setSignLoading(false);
+    setHashLoading(false);
     setUrl("");
     setIsWriteContractError(false);
     setIsWriteContractPending(false);
@@ -96,12 +97,12 @@ const Dashboard = () => {
     if (!files || files.length === 0) return;
     const file = files[0];
     setFile(file);
+    setHashLoading(true);
+    setSignLoading(true);
     setUrl("");
 
     const arrayBuffer = await file.arrayBuffer();
-
     const hashBuffer = await crypto.subtle.digest("SHA-256", arrayBuffer);
-
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hashHex =
       "0x" + hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
@@ -124,6 +125,7 @@ const Dashboard = () => {
   const handleFileUrl = () => {
     url ? window.open(url, "_blank") : null;
   };
+
   return (
     <>
       <div className="w-full">
@@ -278,7 +280,7 @@ const Dashboard = () => {
                       disabled
                       placeholder=""
                       className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full"
-                      value={hash}
+                      value={hashLoading && !hash ? "Loading..." : hash}
                     />
                     <button
                       onClick={(e) => {
@@ -328,7 +330,9 @@ const Dashboard = () => {
                       disabled
                       placeholder=""
                       className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full"
-                      value={signature}
+                      value={
+                        signLoading && !signature ? "Loading..." : signature
+                      }
                     ></input>
                     <button
                       onClick={(e) => {
