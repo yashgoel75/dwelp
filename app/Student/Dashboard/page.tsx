@@ -147,24 +147,36 @@ const Dashboard = () => {
         </div>
         {viewNoticesButton ? (
           <>
-            <div className="w-9/10 m-auto h-[500px] border border-1 border-red-100 shadow-lg rounded-lg mt-5 px-3">
+            <div className="w-9/10 m-auto h-fit min-h-[500px] mb-5 pb-7 border border-1 border-red-100 shadow-lg rounded-lg mt-5 px-3">
               <div className="px-3 py-2 text-center text-lg font-bold">
                 Notices
               </div>
               <div>
                 <ul className="space-y-4">
-                  {(Array.isArray(files) ? [...files].reverse() : []).map((file: any, index: number) => (
-                    <li key={index} className="border border-red-50 px-4 py-1 rounded shadow-md">
-                      <a
-                          href={`${file.ipfs}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-500 underline ml-2"
-                        >
-                        {file.name}
-                      </a>
-                    </li>
-                  ))}
+                  {(Array.isArray(files) ? [...files].reverse() : []).map(
+                    (file: any, index: number) => (
+                      <li key={index} className="px-4">
+                        <div className="flex w-full">
+                          <div className="flex items-center w-90/100">
+                            {file.name}
+                          </div>
+                          <div className="flex my-1 justify-center items-center w-10/100">
+                            <a
+                              href={`${file.ipfs}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="underline ml-2 shadow-md text-center px-3 py-1 rounded-md bg-red-400 h-fit text-white font-bold hover:cursor-pointer hover:scale-105 transition"
+                            >
+                              <button className="hover:cursor-pointer">
+                                View
+                              </button>
+                            </a>
+                          </div>
+                        </div>
+                        <div className="border-1 border-gray-200 mt-2"></div>
+                      </li>
+                    )
+                  )}
                 </ul>
               </div>
             </div>

@@ -54,7 +54,7 @@ export default function Home() {
             onClick={() => {
               router.push("/Student/Dashboard");
             }}
-            className="px-3 py-2 rounded-xl shadow-lg bg-orange-500 text-white font-bold hover:cursor-pointer hover:scale-105 transition"
+            className="px-3 py-2 rounded-lg shadow-lg bg-orange-500 text-white font-bold hover:cursor-pointer hover:scale-105 transition"
           >
             Continue as Student
           </div>
