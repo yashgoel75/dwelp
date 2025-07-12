@@ -1,19 +1,28 @@
 "use client";
 
 import Header from "../Header/page";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useReadContract } from "wagmi";
 import { dwelpAbi } from "@/app/constants/dwelpAbi";
 
 const Dashboard = () => {
-  const DWELP_ADDRESS = "0x7ca3d511a851a375f8f5e828b5094acccc5e587c";
+  const DWELP_ADDRESS = "0x3e7e1d6cd66725d61355022916d2e41fd06202ea";
+  const [viewNoticesButton, setViewNoticesButton] = useState(false);
   const [verifyCirculateButton, setVerifyCirculateButton] = useState(true);
+  const [verifyEmailButton, setVerifyEmailButton] = useState(false);
+
+  const handleViewNoticesButton = () => {
+    setVerifyCirculateButton(false);
+    setVerifyEmailButton(false);
+    setViewNoticesButton(true);
+  };
   const handleVerifyCirculateButton = () => {
+    setViewNoticesButton(false);
     setVerifyEmailButton(false);
     setVerifyCirculateButton(true);
   };
-  const [verifyEmailButton, setVerifyEmailButton] = useState(false);
   const handleVerifyEmailButton = () => {
+    setViewNoticesButton(false);
     setVerifyCirculateButton(false);
     setVerifyEmailButton(true);
   };
@@ -78,6 +87,20 @@ const Dashboard = () => {
     }
   };
 
+  const { data: files } = useReadContract({
+    abi: dwelpAbi,
+    address: DWELP_ADDRESS,
+    functionName: "getFiles",
+    chainId: 11155111,
+  });
+  console.log("Notice: ", files);
+
+  useEffect(() => {
+    if (files) {
+      console.log("Notice: ", files);
+    }
+  }, [files]);
+
   return (
     <>
       <div className="sticky left-0 top-0 z-10 backdrop-blur-md">
@@ -91,6 +114,16 @@ const Dashboard = () => {
         </div>
 
         <div className="flex mt-10 justify-center gap-5">
+          <button
+            className={`font-bold text-red-500 px-3 py-1 rounded-md outline-red-400 outline-2 hover:cursor-pointer focus:outline-2 focus:outline-offset-2 focus:outline-red-500 ${
+              viewNoticesButton
+                ? "bg-red-400 text-white"
+                : "bg-white text-black"
+            } transition`}
+            onClick={handleViewNoticesButton}
+          >
+            View Notices
+          </button>
           <button
             className={`font-bold text-red-500 px-3 py-1 rounded-md outline-red-400 outline-2 hover:cursor-pointer focus:outline-2 focus:outline-offset-2 focus:outline-red-500 ${
               verifyCirculateButton
@@ -112,6 +145,31 @@ const Dashboard = () => {
             Verify an Email
           </button>
         </div>
+        {viewNoticesButton ? (
+          <>
+            <div className="w-9/10 m-auto h-[500px] border border-1 border-red-100 shadow-lg rounded-lg mt-5 px-3">
+              <div className="px-3 py-2 text-center text-lg font-bold">
+                Notices
+              </div>
+              <div>
+                <ul className="space-y-4">
+                  {(Array.isArray(files) ? [...files].reverse() : []).map((file: any, index: number) => (
+                    <li key={index} className="border border-red-50 px-4 py-1 rounded shadow-md">
+                      <a
+                          href={`${file.ipfs}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-500 underline ml-2"
+                        >
+                        {file.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </>
+        ) : null}
 
         {verifyCirculateButton ? (
           <>
@@ -213,7 +271,8 @@ const Dashboard = () => {
               ) : null}
             </div>
           </>
-        ) : (
+        ) : null}
+        {verifyEmailButton ? (
           <>
             <div className="w-9/10 m-auto h-[500px] border border-1 border-red-100 shadow-lg rounded-lg mt-5">
               <div className="px-3 py-2 text-center text-lg font-bold">
@@ -221,7 +280,7 @@ const Dashboard = () => {
               </div>
             </div>
           </>
-        )}
+        ) : null}
       </div>
     </>
   );

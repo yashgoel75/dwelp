@@ -13,7 +13,7 @@ import Link from "next/link";
 export default function Home() {
   const router = useRouter();
   const { address, isConnected } = useAccount();
-  const DWELP_ADDRESS = "0x7ca3d511a851a375f8f5e828b5094acccc5e587c";
+  const DWELP_ADDRESS = "0x3e7e1d6cd66725d61355022916d2e41fd06202ea";
   const { data: admin, isFetched } = useReadContract({
     ...dwelpContractConfig,
     functionName: "admin",

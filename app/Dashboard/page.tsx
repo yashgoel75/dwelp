@@ -8,12 +8,13 @@ import { publicClient } from "@/utils/viemConfig";
 const Dashboard = () => {
   const { address } = useAccount();
   const { writeContractAsync } = useWriteContract();
-  const DWELP_ADDRESS = "0x7ca3d511a851a375f8f5e828b5094acccc5e587c";
+  const DWELP_ADDRESS = "0x3e7e1d6cd66725d61355022916d2e41fd06202ea";
 
   const [circulateButton, setCirculateButton] = useState(true);
   const [emailButton, setEmailButton] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState<File>();
+  const [fileName, setFileName] = useState("");
   const [hashLoading, setHashLoading] = useState(false);
   const [hash, setHash] = useState("");
   const [signLoading, setSignLoading] = useState(false);
@@ -35,6 +36,7 @@ const Dashboard = () => {
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(undefined);
+    setFileName("");
     setHash("");
     setSignature("");
     setSignLoading(false);
@@ -101,12 +103,12 @@ const Dashboard = () => {
       console.log("CID is: ", signedUrl);
       setUrl(signedUrl);
       setUploading(false);
-
+      console.log("URL: ", signedUrl);
       const writeContractHash = await writeContractAsync({
         address: DWELP_ADDRESS,
         abi: dwelpAbi,
         functionName: "addFile",
-        args: [hash, signature, url],
+        args: [hash, fileName, signature, signedUrl],
         account: address,
       });
 
@@ -183,8 +185,8 @@ const Dashboard = () => {
                   isWriteContractError ||
                   isWriteContractPending ||
                   isWriteContractSuccess
-                    ? "h-[625px]"
-                    : "h-[590px]"
+                    ? "h-[705px]"
+                    : "h-[670px]"
                 } mb-7 border border-1 border-red-100 shadow-lg rounded-lg mt-5`}
               >
                 <div className="px-3 py-2 text-center text-lg font-bold">
@@ -286,16 +288,18 @@ const Dashboard = () => {
                     </div>
                   ) : null}
                   <label>
-                    <strong>Hash of the File</strong>
+                    <strong>Notice</strong>
                   </label>
                   <br></br>
                   <div className="flex justify-center items-center border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md">
                     <input
-                      readOnly
-                      disabled
-                      placeholder=""
+                      placeholder="Semester 4 (Batch 2023-27) - Fee Notice (July 12, 2025)"
                       className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full"
-                      value={hashLoading && !hash ? "Loading..." : hash}
+                      value={fileName}
+                      onChange={(e) => {
+                        setFileName(e.target.value);
+                        console.log("File Name: ", fileName);
+                      }}
                     />
                     <button
                       onClick={(e) => {
@@ -332,6 +336,56 @@ const Dashboard = () => {
                         <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
                       </svg>
                     </button>
+                  </div>
+                  <div className="mt-3 m-auto">
+                    <label>
+                      <strong>Hash of the File</strong>
+                    </label>
+                    <br></br>
+                    <div className="flex justify-center items-center border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md">
+                      <input
+                        readOnly
+                        disabled
+                        placeholder=""
+                        className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full"
+                        value={hashLoading && !hash ? "Loading..." : hash}
+                      />
+                      <button
+                        onClick={(e) => {
+                          navigator.clipboard.writeText(hash);
+
+                          const button = e.currentTarget;
+                          const svg = button.querySelector("svg");
+
+                          if (!svg) return;
+
+                          svg.innerHTML = `
+      <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/>
+    `;
+
+                          setTimeout(() => {
+                            svg.innerHTML = `
+        <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 
+        23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 
+        33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 
+        0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
+      `;
+                          }, 2000);
+                        }}
+                        className="hover:scale-105 transition mr-1"
+                        title="Copy to clipboard"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="20px"
+                          viewBox="0 -960 960 960"
+                          width="20px"
+                          fill="#992B15"
+                        >
+                          <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <div className="w-95/100 mt-3 m-auto">
