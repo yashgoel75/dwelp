@@ -157,7 +157,7 @@ const Dashboard = () => {
                     (file: any, index: number) => (
                       <li key={index} className="px-4">
                         <div className="flex w-full">
-                          <div className="flex items-center w-90/100">
+                          <div className="flex items-center w-90/100 text-lg">
                             {file.name}
                           </div>
                           <div className="flex my-1 justify-center items-center w-10/100">
@@ -268,7 +268,7 @@ const Dashboard = () => {
                 </div>
               ) : null}
               {isNotVerified ? (
-                <div className="flex justify-center items-center text-center m-auto px-3 py-1 rounded-md bg-red-500 text-white mt-3 text-center font-bold text-lg w-[300px]">
+                <div className="flex justify-center items-center text-center m-auto px-3 py-1 rounded-md bg-red-500 text-white mt-3 text-center font-bold text-lg w-[500px]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="24px"
@@ -278,7 +278,7 @@ const Dashboard = () => {
                   >
                     <path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
                   </svg>
-                  &nbsp;Cannot be verified by Dwelp
+                  &nbsp;This document is not originally verified by Dwelp
                 </div>
               ) : null}
             </div>

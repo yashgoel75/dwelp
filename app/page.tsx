@@ -1,14 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import Header from "./Header/page";
 import logo from "@/app/assets/dwelpVips.png";
 import { dwelpContractConfig } from "./constants/dwelpConfig";
 import { useReadContract, useAccount } from "wagmi";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import Link from "next/link";
 
 export default function Home() {
   const router = useRouter();
