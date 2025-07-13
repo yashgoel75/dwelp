@@ -78,17 +78,42 @@ export default function Home() {
             </div>
           ) : (
             <>
-              <div className="flex justify-center items-center mt-7 px-3 py-1 rounded-lg bg-green-600 text-white text-xl font-bold">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24px"
-                  viewBox="0 -960 960 960"
-                  width="24px"
-                  fill="#ffffff"
-                >
-                  <path d="m344-60-76-128-144-32 14-148-98-112 98-112-14-148 144-32 76-128 136 58 136-58 76 128 144 32-14 148 98 112-98 112 14 148-144 32-76 128-136-58-136 58Zm34-102 102-44 104 44 56-96 110-26-10-112 74-84-74-86 10-112-110-24-58-96-102 44-104-44-56 96-110 24 10 112-74 86 74 84-10 114 110 24 58 96Zm102-318Zm-42 142 226-226-56-58-170 170-86-84-56 56 142 142Z" />
-                </svg>
-                &nbsp;Approved
+              <div>
+                <div className="flex justify-center items-center mt-7 px-3 py-1 rounded-md bg-green-600 text-white font-bold">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="22px"
+                    viewBox="0 -960 960 960"
+                    width="22px"
+                    fill="#ffffff"
+                  >
+                    <path d="m344-60-76-128-144-32 14-148-98-112 98-112-14-148 144-32 76-128 136 58 136-58 76 128 144 32-14 148 98 112-98 112 14 148-144 32-76 128-136-58-136 58Zm34-102 102-44 104 44 56-96 110-26-10-112 74-84-74-86 10-112-110-24-58-96-102 44-104-44-56 96-110 24 10 112-74 86 74 84-10 114 110 24 58 96Zm102-318Zm-42 142 226-226-56-58-170 170-86-84-56 56 142 142Z" />
+                  </svg>
+                  &nbsp;Approved
+                </div>
+                <div className="mt-4 w-[375px] flex justify-center items-center m-auto px-3 py-1 rounded-md bg-yellow-500 text-yellow-900 font-bold mb-2">
+                  <svg
+                    className="size-5 animate-spin"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="#992B15"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="1"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4J4z"
+                    ></path>
+                  </svg>
+                  &nbsp; Loading... Please Wait!
+                </div>
               </div>
             </>
           ))}

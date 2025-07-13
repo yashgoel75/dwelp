@@ -173,7 +173,7 @@ const Dashboard = () => {
                             </a>
                           </div>
                         </div>
-                        <div className="border-1 border-gray-200 mt-2"></div>
+                        <div className="border-1 rounded border-gray-100 mt-2"></div>
                       </li>
                     )
                   )}
