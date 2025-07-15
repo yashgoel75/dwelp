@@ -54,7 +54,12 @@ const Dashboard = () => {
       alert("File size exceeds 25 MB limit");
       return;
     }
-    if (!file.name.endsWith(".pdf") || !file.name.endsWith(".PDF") || !file.name.endsWith(".doc") || !file.name.endsWith(".docx")) {
+    if (
+      !file.name.endsWith(".pdf") ||
+      !file.name.endsWith(".PDF") ||
+      !file.name.endsWith(".doc") ||
+      !file.name.endsWith(".docx")
+    ) {
       alert("Please upload a PDF file");
       return;
     }
