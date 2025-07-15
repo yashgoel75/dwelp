@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import logo from "@/app/assets/dwelpVips.png";
+import logo from "@/app/assets/dwelpLogo.png";
 import { dwelpContractConfig } from "../constants/dwelpConfig";
 import { useReadContract, useAccount } from "wagmi";
 import { useEffect, useState } from "react";
@@ -40,7 +40,7 @@ const Header = () => {
   return (
     <>
       <div className="flex justify-between w-9/10 m-auto items-center">
-        <Image src={logo} height={110} alt="dwelp. x VIPS"></Image>
+        <Image src={logo} height={110} className="px-7 py-2" alt="dwelp."></Image>
         <div className="flex gap-4">
           <div
             onClick={() => {

@@ -109,11 +109,11 @@ const Dashboard = () => {
       <div className="border border-1 border-gray-300 mb-2"></div>
 
       <div className="w-11/12 m-auto mt-3">
-        <div className="text-center text-2xl">
-          Vivekananda Institute of Professional Studies - Technical Campus
+        <div className="text-center text-2xl mt-5">
+          <strong>Dwelp. University</strong>
         </div>
 
-        <div className="flex mt-10 justify-center gap-5">
+        <div className="flex mt-8 justify-center gap-5">
           <button
             className={`font-bold text-red-500 px-3 py-1 rounded-md outline-red-400 outline-2 hover:cursor-pointer focus:outline-2 focus:outline-offset-2 focus:outline-red-500 ${
               viewNoticesButton

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import logo from "@/app/assets/dwelpVips.png";
+import logo from "@/app/assets/dwelpLogo.png";
 import { dwelpContractConfig } from "./constants/dwelpConfig";
 import { useReadContract, useAccount } from "wagmi";
 import { useEffect, useState } from "react";
