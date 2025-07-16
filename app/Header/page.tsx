@@ -40,7 +40,12 @@ const Header = () => {
   return (
     <>
       <div className="flex justify-between w-9/10 m-auto items-center">
-        <Image src={logo} height={110} className="px-7 py-2" alt="dwelp."></Image>
+        <Image
+          src={logo}
+          height={110}
+          className="px-7 py-2"
+          alt="dwelp."
+        ></Image>
         <div className="flex gap-4">
           <div
             onClick={() => {
