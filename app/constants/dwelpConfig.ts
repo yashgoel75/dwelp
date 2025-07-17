@@ -1,6 +1,6 @@
 export const dwelpContractConfig = {
-	address: '0x7ca3d511a851a375f8f5e828b5094acccc5e587c',
-	chainId: 11155111,
+	address: '0xc48BBE43b1FBDFeEeEc7F6E32740DB9DadCa29e9',
+	chainId: 80002,
 	abi: [
 		{
 			"inputs": [

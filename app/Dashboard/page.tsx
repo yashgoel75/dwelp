@@ -8,7 +8,7 @@ import { publicClient } from "@/utils/viemConfig";
 const Dashboard = () => {
   const { address } = useAccount();
   const { writeContractAsync } = useWriteContract();
-  const DWELP_ADDRESS = "0x3e7e1d6cd66725d61355022916d2e41fd06202ea";
+  const DWELP_ADDRESS = "0xc48BBE43b1FBDFeEeEc7F6E32740DB9DadCa29e9";
 
   const [circulateButton, setCirculateButton] = useState(true);
   const [emailButton, setEmailButton] = useState(false);

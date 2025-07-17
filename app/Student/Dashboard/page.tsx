@@ -6,7 +6,7 @@ import { useReadContract } from "wagmi";
 import { dwelpAbi } from "@/app/constants/dwelpAbi";
 
 const Dashboard = () => {
-  const DWELP_ADDRESS = "0x3e7e1d6cd66725d61355022916d2e41fd06202ea";
+  const DWELP_ADDRESS = "0xc48BBE43b1FBDFeEeEc7F6E32740DB9DadCa29e9";
   const [viewNoticesButton, setViewNoticesButton] = useState(false);
   const [verifyCirculateButton, setVerifyCirculateButton] = useState(true);
   const [verifyEmailButton, setVerifyEmailButton] = useState(false);
@@ -57,7 +57,7 @@ const Dashboard = () => {
     address: DWELP_ADDRESS,
     functionName: "getFile",
     args: [hash],
-    chainId: 11155111,
+    chainId: 80002,
   });
   console.log("Result:", fileData);
   if (!isSignatureLoading && !fileData) {
@@ -152,7 +152,7 @@ const Dashboard = () => {
                 Notices
               </div>
               <div>
-                <ul className="space-y-4">
+                {Array.isArray(files) ? <ul className="space-y-4">
                   {(Array.isArray(files) ? [...files].reverse() : []).map(
                     (file: any, index: number) => (
                       <li key={index} className="px-4">
@@ -177,7 +177,8 @@ const Dashboard = () => {
                       </li>
                     )
                   )}
-                </ul>
+                </ul> : <div className="m-auto flex justify-center items-center">No notices found!</div>}
+                
               </div>
             </div>
           </>
@@ -191,7 +192,7 @@ const Dashboard = () => {
               className="hidden"
               onChange={handleFileChange}
             ></input>
-            <div className="w-9/10 m-auto h-[430px] border border-1 border-red-100 shadow-lg rounded-lg mt-5">
+            <div className="w-9/10 m-auto h-[500px] border border-1 border-red-100 shadow-lg rounded-lg mt-5">
               <div className="px-3 py-2 text-center text-lg font-bold">
                 Verify Notice
               </div>
