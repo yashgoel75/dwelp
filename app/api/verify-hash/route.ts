@@ -12,8 +12,11 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const publicKeyPath = path.join(process.cwd(), 'keys', 'public.pem');
-    const publicKey = fs.readFileSync(publicKeyPath, 'utf8');
+   const publicKey = process.env.PUBLIC_KEY?.replace(/\\n/g, '\n');
+
+    if (!publicKey) {
+      return NextResponse.json({ error: 'Public key not configured' }, { status: 500 });
+    }
 
     const verifier = crypto.createVerify('SHA256');
     const hex = hash.startsWith("0x") ? hash.slice(2) : hash;

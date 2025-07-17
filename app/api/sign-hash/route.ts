@@ -12,8 +12,10 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const privateKeyPath = path.join(process.cwd(), 'keys', 'private.pem');
-    const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
+    const privateKey = process.env.PRIVATE_KEY?.replace(/\\n/g, '\n');
+    if (!privateKey) {
+      return NextResponse.json({ error: 'Private key not configured' }, { status: 500 });
+    }
 
     const signer = crypto.createSign('SHA256');
     const hex = hash.startsWith("0x") ? hash.slice(2) : hash;
