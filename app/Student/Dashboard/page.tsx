@@ -134,7 +134,7 @@ const Dashboard = () => {
           >
             Verify a Notice
           </button>
-          <button
+          {/* <button
             className={`font-bold text-red-500 px-3 py-1 rounded-md outline-red-400 outline-2 hover:cursor-pointer focus:outline-2 focus:outline-offset-2 focus:outline-red-500 ${
               verifyEmailButton
                 ? "bg-red-400 text-white"
@@ -143,7 +143,7 @@ const Dashboard = () => {
             onClick={handleVerifyEmailButton}
           >
             Verify an Email
-          </button>
+          </button> */}
         </div>
         {viewNoticesButton ? (
           <>

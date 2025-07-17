@@ -25,6 +25,12 @@ const Dashboard = () => {
   const [isWriteContractSuccess, setIsWriteContractSuccess] = useState(false);
   const [isWriteContractError, setIsWriteContractError] = useState(false);
 
+  const [to, setTo] = useState([""]);
+  const [cc, setCc] = useState([""]);
+  const [bcc, setBcc] = useState([""]);
+  const [subject, setSubject] = useState("");
+  const [body, setBody] = useState("");
+
   const handleCirculateButton = () => {
     setEmailButton(false);
     setCirculateButton(true);
@@ -168,14 +174,14 @@ const Dashboard = () => {
             >
               Circulate a Notice
             </button>
-            <button
+            {/* <button
               className={`font-bold text-red-500 px-3 py-1 rounded-md outline-red-400 outline-2 hover:cursor-pointer focus:outline-2 focus:outline-offset-2 focus:outline-red-500 ${
                 emailButton ? "bg-red-400 text-white" : "bg-white text-black"
               } transition`}
               onClick={handleEmailButton}
             >
               Send an Email
-            </button>
+            </button> */}
           </div>
           {circulateButton ? (
             <>
@@ -508,15 +514,56 @@ const Dashboard = () => {
                 </div>
               </div>
             </>
-          ) : (
-            <>
-              <div className="w-9/10 m-auto h-[500px] border border-1 border-red-100 shadow-lg rounded-lg mt-5">
-                <div className="px-3 py-2 text-center text-lg font-bold">
-                  Send Mail
-                </div>
-              </div>
-            </>
-          )}
+          ) : // <>
+          //   <div className="w-9/10 m-auto min-h-[500px] h-fit border border-1 border-red-100 shadow-lg rounded-lg mt-5 pb-8 mb-8">
+          //     <div className="px-3 py-2 text-center text-lg font-bold">
+          //       Send Mail
+          //     </div>
+          //     <div className="w-95/100 m-auto mt-2 flex flex-col">
+          //       <label>
+          //         <strong>To:</strong>
+          //       </label>
+          //       <input className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md"></input>
+          //     </div>
+          //     <div className="w-95/100 m-auto mt-2 flex flex-col">
+          //       <label>
+          //         <strong>Cc:</strong>
+          //       </label>
+          //       <input className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md"></input>
+          //     </div>
+          //     <div className="w-95/100 m-auto mt-2 flex flex-col">
+          //       <label>
+          //         <strong>Bcc:</strong>
+          //       </label>
+          //       <input className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md"></input>
+          //     </div>
+          //     <div className="w-95/100 m-auto mt-2 flex flex-col">
+          //       <label>
+          //         <strong>Subject:</strong>
+          //       </label>
+          //       <input className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md"></input>
+          //     </div>
+          //     <div className="w-95/100 m-auto mt-2 flex flex-col">
+          //       <label>
+          //         <strong>Body:</strong>
+          //       </label>
+          //       <textarea className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md" />
+          //       </div>
+          //       <div>
+          //       <button
+          //         onClick={uploadFile}
+          //         className={`mt-4 flex justify-center items-center px-3 py-1 outline-red-400 rounded-md bg-red-400 text-white font-bold mt-2 w-fit m-auto hover:bg-red-500 transition ${
+          //           uploading
+          //             ? "opacity-50 hover:cursor-not-allowed"
+          //             : "hover:cursor-pointer"
+          //         }`}
+          //       >
+          //         {uploading ? "Uploading" : "Sign and Send"}
+          //       </button>
+          //     </div>
+          //   </div>
+          // </>
+          null}
         </div>
       </div>
     </>
