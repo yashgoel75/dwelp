@@ -136,7 +136,9 @@ const Dashboard = () => {
   };
 
   const handleFileUrl = () => {
-    url ? window.open(url, "_blank") : null;
+    if (url) {
+      window.open(url, "_blank");
+    }
   };
 
   return (
