@@ -50,10 +50,7 @@ const Dashboard = () => {
       return;
     }
     if (
-      !file.name.endsWith(".pdf") ||
-      !file.name.endsWith(".PDF") ||
-      !file.name.endsWith(".doc") ||
-      !file.name.endsWith(".docx")
+      !file.name.endsWith(".pdf")
     ) {
       alert("Please upload a PDF file");
       return;
