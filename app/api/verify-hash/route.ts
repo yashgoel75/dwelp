@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
-import fs from 'fs';
-import path from 'path';
 
 export async function POST(req: NextRequest) {
   const body = await req.json();

@@ -21,11 +21,6 @@ const Dashboard = () => {
     setVerifyEmailButton(false);
     setVerifyCirculateButton(true);
   };
-  const handleVerifyEmailButton = () => {
-    setViewNoticesButton(false);
-    setVerifyCirculateButton(false);
-    setVerifyEmailButton(true);
-  };
   const [isVerified, setIsVerified] = useState(false);
   const [isNotVerified, setIsNotVerified] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);

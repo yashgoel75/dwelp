@@ -11,7 +11,6 @@ const Dashboard = () => {
   const DWELP_ADDRESS = "0xc48BBE43b1FBDFeEeEc7F6E32740DB9DadCa29e9";
 
   const [circulateButton, setCirculateButton] = useState(true);
-  const [emailButton, setEmailButton] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState<File>();
   const [fileName, setFileName] = useState("");
@@ -32,12 +31,7 @@ const Dashboard = () => {
   const [body, setBody] = useState("");
 
   const handleCirculateButton = () => {
-    setEmailButton(false);
     setCirculateButton(true);
-  };
-  const handleEmailButton = () => {
-    setCirculateButton(false);
-    setEmailButton(true);
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
