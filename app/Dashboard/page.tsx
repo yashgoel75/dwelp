@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { useAccount, useWriteContract } from "wagmi";
 import { dwelpAbi } from "../constants/dwelpAbi";
 import { publicClient } from "@/utils/viemConfig";
+import Footer from "../Footer/page";
 
 const Dashboard = () => {
   const { address } = useAccount();
@@ -556,6 +557,7 @@ const Dashboard = () => {
           null}
         </div>
       </div>
+      <Footer/>
     </>
   );
 };

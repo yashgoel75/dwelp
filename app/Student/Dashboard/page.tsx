@@ -4,6 +4,7 @@ import Header from "../Header/page";
 import { useState, useRef, useEffect } from "react";
 import { useReadContract } from "wagmi";
 import { dwelpAbi } from "@/app/constants/dwelpAbi";
+import Footer from "@/app/Footer/page";
 
 const Dashboard = () => {
   interface FileType {
@@ -197,7 +198,7 @@ const Dashboard = () => {
               className="hidden"
               onChange={handleFileChange}
             ></input>
-            <div className="w-9/10 m-auto h-[500px] border border-1 border-red-100 shadow-lg rounded-lg mt-5">
+            <div className="w-9/10 m-auto h-[500px] border border-1 border-red-100 shadow-lg mb-7 rounded-lg mt-5">
               <div className="px-3 py-2 text-center text-lg font-bold">
                 Verify Notice
               </div>
@@ -292,7 +293,7 @@ const Dashboard = () => {
         ) : null}
         {verifyEmailButton ? (
           <>
-            <div className="w-9/10 m-auto h-[500px] border border-1 border-red-100 shadow-lg rounded-lg mt-5">
+            <div className="w-9/10 m-auto h-[500px] mb-7 border border-1 border-red-100 shadow-lg rounded-lg mt-5">
               <div className="px-3 py-2 text-center text-lg font-bold">
                 Send Mail
               </div>
@@ -300,6 +301,7 @@ const Dashboard = () => {
           </>
         ) : null}
       </div>
+      <Footer/>
     </>
   );
 };
