@@ -24,12 +24,6 @@ const Dashboard = () => {
   const [isWriteContractSuccess, setIsWriteContractSuccess] = useState(false);
   const [isWriteContractError, setIsWriteContractError] = useState(false);
 
-  const [to, setTo] = useState([""]);
-  const [cc, setCc] = useState([""]);
-  const [bcc, setBcc] = useState([""]);
-  const [subject, setSubject] = useState("");
-  const [body, setBody] = useState("");
-
   const handleCirculateButton = () => {
     setCirculateButton(true);
   };
@@ -164,7 +158,7 @@ const Dashboard = () => {
                   ? "bg-red-400 text-white"
                   : "bg-white text-black"
               } transition`}
-              onClick={handleCirculateButton}
+              onClick={() => handleCirculateButton}
             >
               Circulate a Notice
             </button>

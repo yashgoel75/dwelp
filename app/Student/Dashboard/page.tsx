@@ -6,6 +6,11 @@ import { useReadContract } from "wagmi";
 import { dwelpAbi } from "@/app/constants/dwelpAbi";
 
 const Dashboard = () => {
+  interface FileType {
+    name: string;
+    ipfs: string;
+  }
+
   const DWELP_ADDRESS = "0xc48BBE43b1FBDFeEeEc7F6E32740DB9DadCa29e9";
   const [viewNoticesButton, setViewNoticesButton] = useState(false);
   const [verifyCirculateButton, setVerifyCirculateButton] = useState(true);
@@ -86,8 +91,8 @@ const Dashboard = () => {
     abi: dwelpAbi,
     address: DWELP_ADDRESS,
     functionName: "getFiles",
-    chainId: 11155111,
-  });
+    chainId: 80002,
+  }) as { data: FileType[] | undefined };
   console.log("Notice: ", files);
 
   useEffect(() => {
@@ -147,33 +152,38 @@ const Dashboard = () => {
                 Notices
               </div>
               <div>
-                {Array.isArray(files) ? <ul className="space-y-4">
-                  {(Array.isArray(files) ? [...files].reverse() : []).map(
-                    (file: any, index: number) => (
-                      <li key={index} className="px-4">
-                        <div className="flex w-full">
-                          <div className="flex items-center w-90/100 text-lg">
-                            {file.name}
+                {Array.isArray(files) ? (
+                  <ul className="space-y-4">
+                    {(Array.isArray(files) ? [...files].reverse() : []).map(
+                      (file, index) => (
+                        <li key={index} className="px-4">
+                          <div className="flex w-full">
+                            <div className="flex items-center w-90/100 text-lg">
+                              {file.name}
+                            </div>
+                            <div className="flex my-1 justify-center items-center w-10/100">
+                              <a
+                                href={`${file.ipfs}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="underline ml-2 shadow-md text-center px-3 py-1 rounded-md bg-red-400 h-fit text-white font-bold hover:cursor-pointer hover:scale-105 transition"
+                              >
+                                <button className="hover:cursor-pointer">
+                                  View
+                                </button>
+                              </a>
+                            </div>
                           </div>
-                          <div className="flex my-1 justify-center items-center w-10/100">
-                            <a
-                              href={`${file.ipfs}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="underline ml-2 shadow-md text-center px-3 py-1 rounded-md bg-red-400 h-fit text-white font-bold hover:cursor-pointer hover:scale-105 transition"
-                            >
-                              <button className="hover:cursor-pointer">
-                                View
-                              </button>
-                            </a>
-                          </div>
-                        </div>
-                        <div className="border-1 rounded border-gray-100 mt-2"></div>
-                      </li>
-                    )
-                  )}
-                </ul> : <div className="m-auto flex justify-center items-center">No notices found!</div>}
-                
+                          <div className="border-1 rounded border-gray-100 mt-2"></div>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                ) : (
+                  <div className="m-auto flex justify-center items-center">
+                    No notices found!
+                  </div>
+                )}
               </div>
             </div>
           </>
