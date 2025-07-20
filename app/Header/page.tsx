@@ -7,6 +7,7 @@ import { useReadContract, useAccount } from "wagmi";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import favicon from "@/app/favicon.ico";
 
 const Header = () => {
   const router = useRouter();
@@ -36,13 +37,27 @@ const Header = () => {
     return () => clearTimeout(timeout);
   }, [address, isAdmin]);
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
-      <div className="flex justify-between w-9/10 m-auto items-center">
+      <div
+        className={`flex justify-between ${
+          isMobile ? "w-95/100" : "w-9/10"
+        } m-auto items-center`}
+      >
         <Image
-          src={logo}
-          height={110}
-          className="px-7 py-2"
+          src={isMobile ? favicon : logo}
+          height={isMobile ? 70 : 110}
+          className={`${isMobile ? "px-2" : "px-7"} py-2`}
           alt="dwelp."
         ></Image>
         <div className="flex gap-4">
@@ -50,9 +65,15 @@ const Header = () => {
             onClick={() => {
               router.push("/Student/Dashboard");
             }}
-            className="px-3 py-2 rounded-lg shadow-lg bg-red-400 text-white font-bold hover:cursor-pointer hover:scale-105 transition"
+            className={`flex items-center ${
+              isMobile ? "text-sm" : null
+            } px-3 py-2 rounded-lg shadow-lg bg-red-400 text-white font-bold hover:cursor-pointer hover:scale-105 transition`}
           >
-            Go to Student Dashboard
+            {isMobile ? (
+              <p>Student Dashboard</p>
+            ) : (
+              <p>Go to Student Dashboard</p>
+            )}
           </div>
           <ConnectButton chainStatus={"none"} accountStatus={"avatar"} />
         </div>

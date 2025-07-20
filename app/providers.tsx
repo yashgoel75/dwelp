@@ -2,10 +2,7 @@
 
 import config from "@/config";
 import "@rainbow-me/rainbowkit/styles.css";
-import {
-  RainbowKitProvider,
-  lightTheme,
-} from "@rainbow-me/rainbowkit";
+import { RainbowKitProvider, lightTheme } from "@rainbow-me/rainbowkit";
 import { WagmiProvider } from "wagmi";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 

@@ -49,9 +49,7 @@ const Dashboard = () => {
       alert("File size exceeds 25 MB limit");
       return;
     }
-    if (
-      !file.name.endsWith(".pdf")
-    ) {
+    if (!file.name.endsWith(".pdf")) {
       alert("Please upload a PDF file");
       return;
     }
@@ -180,7 +178,7 @@ const Dashboard = () => {
                 onChange={handleFileChange}
               ></input>
               <div
-                className={`w-9/10 m-auto ${
+                className={`sm:w-98/100 md:w-9/10 m-auto ${
                   isWriteContractError ||
                   isWriteContractPending ||
                   isWriteContractSuccess
@@ -195,7 +193,7 @@ const Dashboard = () => {
                   onClick={() => {
                     fileInputRef.current?.click();
                   }}
-                  className="font-semibold text-lg border-2 border-dashed border-red-200 text-red-800 rounded-md w-[400px] h-[200px] bg-red-50 m-auto flex flex-col justify-center items-center hover:cursor-pointer"
+                  className="font-semibold text-lg border-2 border-dashed border-red-200 text-red-800 rounded-md w-9/10 md:w-[400px] h-[200px] bg-red-50 m-auto flex flex-col justify-center items-center hover:cursor-pointer"
                 >
                   {file ? (
                     <>
@@ -554,7 +552,7 @@ const Dashboard = () => {
           null}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

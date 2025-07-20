@@ -148,7 +148,9 @@ const Dashboard = () => {
         </div>
         {viewNoticesButton ? (
           <>
-            <div className="w-9/10 m-auto h-fit min-h-[500px] mb-7 pb-7 border border-1 border-red-100 shadow-lg rounded-lg mt-5 px-3">
+            <div
+              className={`w-98/100 md:w-9/10 m-auto h-fit min-h-[500px] mb-7 pb-7 border border-1 border-red-100 shadow-lg rounded-lg mt-5 px-3`}
+            >
               <div className="px-3 py-2 text-center text-lg font-bold">
                 Notices
               </div>
@@ -198,7 +200,7 @@ const Dashboard = () => {
               className="hidden"
               onChange={handleFileChange}
             ></input>
-            <div className="w-9/10 m-auto h-[500px] border border-1 border-red-100 shadow-lg mb-7 rounded-lg mt-5">
+            <div className="sm:w-98/100 md:w-9/10 m-auto h-[500px] border border-1 border-red-100 shadow-lg mb-7 rounded-lg mt-5">
               <div className="px-3 py-2 text-center text-lg font-bold">
                 Verify Notice
               </div>
@@ -206,7 +208,7 @@ const Dashboard = () => {
                 onClick={() => {
                   fileInputRef.current?.click();
                 }}
-                className="font-semibold text-lg border-2 border-dashed border-red-200 text-red-800 rounded-md w-[400px] h-[200px] bg-red-50 m-auto flex flex-col justify-center items-center hover:cursor-pointer"
+                className={`font-semibold text-lg border-2 border-dashed border-red-200 text-red-800 rounded-md w-9/10 md:w-[400px] h-[200px] bg-red-50 m-auto flex flex-col justify-center items-center hover:cursor-pointer`}
               >
                 {file ? (
                   <>
