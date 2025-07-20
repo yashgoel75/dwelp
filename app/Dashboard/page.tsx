@@ -4,12 +4,13 @@ import { useState, useRef } from "react";
 import { useAccount, useWriteContract } from "wagmi";
 import { dwelpAbi } from "../constants/dwelpAbi";
 import { publicClient } from "@/utils/viemConfig";
+import { polygonAmoy } from "viem/chains";
 import Footer from "../Footer/page";
 
 const Dashboard = () => {
   const { address } = useAccount();
   const { writeContractAsync } = useWriteContract();
-  const DWELP_ADDRESS = "0xc48BBE43b1FBDFeEeEc7F6E32740DB9DadCa29e9";
+  const DWELP_ADDRESS = "0x9011af317e62bd151fcb60b093e09b07e81516cf";
 
   const [circulateButton, setCirculateButton] = useState(true);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -105,7 +106,7 @@ const Dashboard = () => {
         functionName: "addFile",
         args: [hash, fileName, signature, signedUrl],
         account: address,
-        chainId: 80002,
+        chain: polygonAmoy,
       });
 
       console.log("Transaction hash:", writeContractHash);
