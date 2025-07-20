@@ -12,7 +12,7 @@ const Dashboard = () => {
     ipfs: string;
   }
 
-  const DWELP_ADDRESS = "0x9011af317e62bd151fcb60b093e09b07e81516cf";
+  const DWELP_ADDRESS = "0x3e7e1d6cd66725d61355022916d2e41fd06202ea";
   const [viewNoticesButton, setViewNoticesButton] = useState(false);
   const [verifyCirculateButton, setVerifyCirculateButton] = useState(true);
   const [verifyEmailButton, setVerifyEmailButton] = useState(false);
