@@ -105,6 +105,7 @@ const Dashboard = () => {
         functionName: "addFile",
         args: [hash, fileName, signature, signedUrl],
         account: address,
+        chainId: 80002,
       });
 
       console.log("Transaction hash:", writeContractHash);
