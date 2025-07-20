@@ -2,9 +2,7 @@
 import '@rainbow-me/rainbowkit/styles.css';
 import {
   getDefaultConfig,
-  RainbowKitProvider,
 } from '@rainbow-me/rainbowkit';
-import { WagmiProvider } from 'wagmi';
 import {
   mainnet,
   polygon,
@@ -14,10 +12,6 @@ import {
   polygonAmoy,
   sepolia
 } from 'wagmi/chains';
-import {
-  QueryClientProvider,
-  QueryClient,
-} from "@tanstack/react-query";
 
 const config = getDefaultConfig({
   appName: 'dwelp-vips',
