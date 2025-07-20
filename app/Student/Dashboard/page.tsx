@@ -102,6 +102,16 @@ const Dashboard = () => {
     }
   }, [files]);
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
       <div className="sticky left-0 top-0 z-10 backdrop-blur-md">
@@ -200,7 +210,7 @@ const Dashboard = () => {
               className="hidden"
               onChange={handleFileChange}
             ></input>
-            <div className="sm:w-98/100 md:w-9/10 m-auto h-[500px] border border-1 border-red-100 shadow-lg mb-7 rounded-lg mt-5">
+            <div className="w-98/100 md:w-9/10 m-auto h-[500px] border border-1 border-red-100 shadow-lg mb-7 rounded-lg mt-5">
               <div className="px-3 py-2 text-center text-lg font-bold">
                 Verify Notice
               </div>
@@ -263,12 +273,14 @@ const Dashboard = () => {
                 </button>
               </div>
               {isVerified ? (
-                <div className="flex justify-center items-center text-center m-auto px-3 py-1 rounded-md bg-green-600 text-white mt-3 text-center font-bold text-lg w-[300px]">
+                <div className={`flex justify-center items-center text-center m-auto px-3 py-1 rounded-md bg-green-600 text-white mt-3 text-center font-bold ${
+                    isMobile ? "w-9/10 text-sm" : "w-[500px] text-lg text-center"
+                  }`}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    height="24px"
+                    height={isMobile ? "20px" : "24px"}
                     viewBox="0 -960 960 960"
-                    width="24px"
+                    width={isMobile ? "20px" : "24px"}
                     fill="#ffffff"
                   >
                     <path d="m344-60-76-128-144-32 14-148-98-112 98-112-14-148 144-32 76-128 136 58 136-58 76 128 144 32-14 148 98 112-98 112 14 148-144 32-76 128-136-58-136 58Zm34-102 102-44 104 44 56-96 110-26-10-112 74-84-74-86 10-112-110-24-58-96-102 44-104-44-56 96-110 24 10 112-74 86 74 84-10 114 110 24 58 96Zm102-318Zm-42 142 226-226-56-58-170 170-86-84-56 56 142 142Z" />
@@ -277,12 +289,16 @@ const Dashboard = () => {
                 </div>
               ) : null}
               {isNotVerified ? (
-                <div className="flex justify-center items-center text-center m-auto px-3 py-1 rounded-md bg-red-500 text-white mt-3 text-center font-bold text-lg w-[500px]">
+                <div
+                  className={`flex justify-center text-center m-auto px-3 py-1 rounded-md bg-red-500 text-white mt-3 font-bold ${
+                    isMobile ? "w-9/10 text-sm" : "items-center w-[500px] text-lg text-center"
+                  }`}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    height="24px"
+                    height={isMobile ? "20px" : "24px"}
                     viewBox="0 -960 960 960"
-                    width="24px"
+                    width={isMobile ? "20px" : "24px"}
                     fill="#ffffff"
                   >
                     <path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />

@@ -40,7 +40,7 @@ const Header = () => {
     <>
       {isFetched && isConnected && isAdmin ? (
         <>
-          <div className="flex justify-between w-9/10 m-auto items-center">
+          <div className="flex justify-between w-95/100 md:w-9/10 m-auto items-center">
             <Image
               src={isMobile ? favicon : logo}
               height={isMobile ? 70 : 110}
