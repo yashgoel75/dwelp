@@ -153,7 +153,7 @@ const Dashboard = () => {
                 Notices
               </div>
               <div>
-                {Array.isArray(files) ? (
+                {Array.isArray(files) && files.length > 0 ? (
                   <ul className="space-y-4">
                     {(Array.isArray(files) ? [...files].reverse() : []).map(
                       (file, index) => (
@@ -301,7 +301,7 @@ const Dashboard = () => {
           </>
         ) : null}
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };
