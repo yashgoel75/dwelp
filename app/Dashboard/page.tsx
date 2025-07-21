@@ -10,7 +10,7 @@ import Footer from "../Footer/page";
 const Dashboard = () => {
   const { address } = useAccount();
   const { writeContractAsync } = useWriteContract();
-  const DWELP_ADDRESS = "0x280cd4255bc91660e7b5e3c8d71b9cb832f80f5a";
+  const DWELP_ADDRESS = "0x82f7af6b80b556bf98a1ff0859d9fb2581633235";
 
   const [circulateButton, setCirculateButton] = useState(true);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
