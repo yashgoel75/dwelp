@@ -129,7 +129,7 @@ const Dashboard = () => {
     } catch (e) {
       console.log(e);
       setUploading(false);
-      alert("Trouble uploading file");
+      console.log("Trouble uploading file");
     }
   };
 
