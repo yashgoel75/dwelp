@@ -3,5 +3,5 @@ import { polygonAmoy } from 'viem/chains'
 
 export const publicClient = createPublicClient({ 
   chain: polygonAmoy,
-  transport: http('https://polygon-amoy.infura.io/v3/0143df0befda47cb8c39faca907961e3')
+  transport: http('https://polygon-amoy.g.alchemy.com/v2/lsabosOMapNRPIc7cq3_V')
 })
