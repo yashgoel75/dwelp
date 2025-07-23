@@ -6,8 +6,9 @@ import { dwelpAbi } from "../constants/dwelpAbi";
 import { publicClient } from "@/utils/viemConfig";
 import { polygonAmoy } from "viem/chains";
 import Footer from "../Footer/page";
-
+import { useTheme } from "../context/theme";
 const Dashboard = () => {
+  const { theme } = useTheme();
   const { address } = useAccount();
   const { writeContractAsync } = useWriteContract();
   const DWELP_ADDRESS = "0x82f7af6b80b556bf98a1ff0859d9fb2581633235";
@@ -141,7 +142,11 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="w-full">
+      <div
+        className={`w-full ${
+          theme === "dark" ? "bg-gray-800 text-white" : null
+        }`}
+      >
         <div className="sticky left-0 top-0 z-10 backdrop-blur-md">
           <Header />
           <div className="border border-1 border-gray-300 mb-2"></div>
@@ -153,11 +158,11 @@ const Dashboard = () => {
           </div>
           <div className="flex mt-8 justify-center gap-5">
             <button
-              className={`font-bold text-red-500 px-3 py-1 rounded-md outline-red-400 outline-2 hover:cursor-pointer focus:outline-2 focus:outline-offset-2 focus:outline-red-500 ${
-                circulateButton
-                  ? "bg-red-400 text-white"
-                  : "bg-white text-black"
-              } transition`}
+              className={`${
+                theme === "dark"
+                  ? "bg-red-800 outline-red-800 text-white focus:outline-red-500"
+                  : "bg-red-400 outline-red-400 text-white focus:outline-red-500"
+              } font-bold text-red-500 px-3 py-1 rounded-md outline-2 hover:cursor-pointer focus:outline-2 focus:outline-offset-2 transition`}
               onClick={() => handleCirculateButton}
             >
               Circulate a Notice
@@ -181,12 +186,16 @@ const Dashboard = () => {
               ></input>
               <div
                 className={`sm:w-98/100 md:w-9/10 m-auto ${
+                  theme === "dark"
+                    ? "bg-gray-900 text-white border-white-100"
+                    : "border-red-100"
+                } ${
                   isWriteContractError ||
                   isWriteContractPending ||
                   isWriteContractSuccess
                     ? "h-[705px]"
                     : "h-[670px]"
-                } mb-7 border border-1 border-red-100 shadow-lg rounded-lg mt-5`}
+                } mb-7 border border-1 shadow-lg rounded-lg mt-5`}
               >
                 <div className="px-3 py-2 text-center text-lg font-bold">
                   Circulate Notice
@@ -195,7 +204,11 @@ const Dashboard = () => {
                   onClick={() => {
                     fileInputRef.current?.click();
                   }}
-                  className="font-semibold text-lg border-2 border-dashed border-red-200 text-red-800 rounded-md w-9/10 md:w-[400px] h-[200px] bg-red-50 m-auto flex flex-col justify-center items-center hover:cursor-pointer"
+                  className={`${
+                    theme === "dark"
+                      ? "bg-gray-800 text-white border-white-200"
+                      : "text-red-800 bg-red-50 border-red-200"
+                  } font-semibold text-lg border-2 border-dashed rounded-md w-9/10 md:w-[400px] h-[200px] m-auto flex flex-col justify-center items-center hover:cursor-pointer`}
                 >
                   {file ? (
                     <>
@@ -204,7 +217,7 @@ const Dashboard = () => {
                         height="40px"
                         viewBox="0 -960 960 960"
                         width="40px"
-                        fill="#992B15"
+                        fill={theme === "dark" ? "#ffffff" : "#992B15"}
                       >
                         <path d="M240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z" />
                       </svg>
@@ -221,7 +234,7 @@ const Dashboard = () => {
                         height="40px"
                         viewBox="0 -960 960 960"
                         width="40px  "
-                        fill="#992B15"
+                        fill={theme === "dark" ? "#ffffff" : "#992B15"}
                       >
                         <path d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
                       </svg>
@@ -230,13 +243,19 @@ const Dashboard = () => {
                     </>
                   )}
                 </div>
-                <div className="text-center mt-1 text-red-600 font-semibold font-[Poppins]">
+                <div
+                  className={`${
+                    theme === "dark" ? "bg-gray-900 text-white" : null
+                  } text-center mt-1 text-red-600 font-semibold font-[Poppins]`}
+                >
                   Max file size: 25 MB
                 </div>
                 <div>
                   <button
                     onClick={uploadFile}
-                    className={`flex justify-center items-center px-3 py-1 outline-red-400 rounded-md bg-red-400 text-white font-bold mt-2 w-fit m-auto hover:bg-red-500 transition ${
+                    className={`${
+                      theme === "dark" ? "bg-red-800 outline-red-800 hover:bg-red-700" : "bg-red-400 outline-red-400 hover:bg-red-500"
+                    } flex justify-center items-center px-3 py-1 rounded-md text-white font-bold mt-2 w-fit m-auto transition ${
                       uploading
                         ? "opacity-50 hover:cursor-not-allowed"
                         : "hover:cursor-pointer"
@@ -252,7 +271,7 @@ const Dashboard = () => {
                       <svg
                         className="size-5 animate-spin"
                         xmlns="http://www.w3.org/2000/svg"
-                        fill="#992B15"
+                        fill={theme === "dark" ? "#ffffff" : "#992B15"}
                         viewBox="0 0 24 24"
                       >
                         <circle
@@ -290,7 +309,13 @@ const Dashboard = () => {
                     <strong>Notice</strong>
                   </label>
                   <br></br>
-                  <div className="flex justify-center items-center border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md">
+                  <div
+                    className={`${
+                      theme === "dark"
+                        ? "bg-gray-900 text-white"
+                        : "border-red-400 outline-red-400"
+                    } flex justify-center items-center border-1 outline-offset-1 rounded-md`}
+                  >
                     <input
                       placeholder="Semester 4 (Batch 2023-27) - Fee Notice (July 12, 2025)"
                       className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full"
@@ -330,7 +355,7 @@ const Dashboard = () => {
                         height="20px"
                         viewBox="0 -960 960 960"
                         width="20px"
-                        fill="#992B15"
+                        fill={theme === "dark" ? "#ffffff" : "#992B15"}
                       >
                         <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
                       </svg>
@@ -341,7 +366,13 @@ const Dashboard = () => {
                       <strong>Hash of the File</strong>
                     </label>
                     <br></br>
-                    <div className="flex justify-center items-center border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md">
+                    <div
+                      className={`${
+                        theme === "dark"
+                          ? "bg-gray-900 text-white"
+                          : "border-red-400 outline-red-400"
+                      } flex justify-center items-center border-1 outline-offset-1 rounded-md`}
+                    >
                       <input
                         readOnly
                         disabled
@@ -379,7 +410,7 @@ const Dashboard = () => {
                           height="20px"
                           viewBox="0 -960 960 960"
                           width="20px"
-                          fill="#992B15"
+                          fill={theme === "dark" ? "#ffffff" : "#992B15"}
                         >
                           <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
                         </svg>
@@ -392,7 +423,13 @@ const Dashboard = () => {
                     <strong>Digital Signature of the File</strong>
                   </label>
                   <br></br>
-                  <div className="flex border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md">
+                  <div
+                    className={`${
+                      theme === "dark"
+                        ? "bg-gray-900 text-white"
+                        : "border-red-400 outline-red-400"
+                    } flex border-1 outline-offset-1 rounded-md`}
+                  >
                     <input
                       readOnly
                       disabled
@@ -432,7 +469,7 @@ const Dashboard = () => {
                         height="20px"
                         viewBox="0 -960 960 960"
                         width="20px"
-                        fill="#992B15"
+                        fill={theme === "dark" ? "#ffffff" : "#992B15"}
                       >
                         <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
                       </svg>
@@ -444,7 +481,13 @@ const Dashboard = () => {
                     <strong>IPFS URL of the File</strong>
                   </label>
                   <br></br>
-                  <div className="flex border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md">
+                  <div
+                    className={`${
+                      theme === "dark"
+                        ? "bg-gray-900 text-white"
+                        : "border-red-400 outline-red-400"
+                    } flex border-1 outline-offset-1 rounded-md`}
+                  >
                     <input
                       readOnly
                       className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full"
@@ -481,7 +524,7 @@ const Dashboard = () => {
                         height="20px"
                         viewBox="0 -960 960 960"
                         width="20px"
-                        fill="#992B15"
+                        fill={theme === "dark" ? "#ffffff" : "#992B15"}
                       >
                         <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
                       </svg>
@@ -491,7 +534,9 @@ const Dashboard = () => {
                 <div className="w-95/100 m-auto mt-2">
                   <div
                     onClick={handleFileUrl}
-                    className={`flex px-3 py-1 bg-red-400 text-white rounded-md w-fit ${
+                    className={`${
+                      theme === "dark" ? "bg-red-800" : "bg-red-400"
+                    } flex px-3 py-1 text-white rounded-md w-fit ${
                       url && !uploading
                         ? "hover:cursor-pointer"
                         : "opacity-50 disabled hover:cursor-not-allowed"
@@ -553,8 +598,8 @@ const Dashboard = () => {
           // </>
           null}
         </div>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 };
