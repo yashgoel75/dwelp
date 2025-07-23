@@ -166,7 +166,7 @@ const Dashboard = () => {
           {viewNoticesButton ? (
             <>
               <div
-                className={`w-98/100 md:w-9/10 m-auto h-fit min-h-[500px] mb-7 pb-7 border border-1 border-red-100 shadow-lg rounded-lg mt-5 px-3`}
+                className={`${theme === "dark" ? "bg-gray-900" : null} w-98/100 md:w-9/10 m-auto h-fit min-h-[500px] mb-7 pb-7 border border-1 border-red-100 shadow-lg rounded-lg mt-5 px-3`}
               >
                 <div className="px-3 py-2 text-center text-lg font-bold">
                   Notices

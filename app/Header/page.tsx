@@ -77,7 +77,7 @@ const Header = () => {
               } px-3 py-2 rounded-lg shadow-lg text-white font-bold hover:cursor-pointer hover:scale-105 transition`}
             >
               {isMobile ? (
-                <p>Student Dashboard</p>
+                <p>Student Dash</p>
               ) : (
                 <p>Go to Student Dashboard</p>
               )}
