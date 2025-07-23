@@ -172,7 +172,7 @@ const Dashboard = () => {
               <div
                 className={`${
                   theme === "dark" ? "bg-gray-900" : null
-                } w-98/100 md:w-9/10 m-auto h-fit min-h-[500px] mb-7 pb-7 border border-1 border-red-100 shadow-lg rounded-lg mt-5 px-3`}
+                } sm:w-98/100 md:w-9/10 m-auto h-fit min-h-[500px] mb-7 pb-7 border border-1 border-red-100 shadow-lg rounded-lg mt-5 px-3`}
               >
                 <div className="px-3 py-2 text-center text-lg font-bold">
                   Notices
@@ -233,7 +233,7 @@ const Dashboard = () => {
               <div
                 className={`${
                   theme === "dark" ? "bg-gray-900" : "bg-white"
-                } w-98/100 md:w-9/10 m-auto h-[500px] border border-1 border-red-100 shadow-lg mb-7 rounded-lg mt-5`}
+                } sm:w-98/100 md:w-9/10 m-auto h-[500px] border border-1 border-red-100 shadow-lg mb-7 rounded-lg mt-5`}
               >
                 <div className="px-3 py-2 text-center text-lg font-bold">
                   Verify Notice
