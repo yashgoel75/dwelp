@@ -52,7 +52,7 @@ const Header = () => {
             >
               <Image
                 src={isMobile ? favicon : theme === "dark" ? logoDark : logo}
-                height={isMobile ? 70 : 110}
+                height={isMobile ? 60 : 110}
                 className={`${isMobile ? "px-2" : "px-7"} py-2`}
                 alt="dwelp."
               ></Image>

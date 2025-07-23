@@ -72,7 +72,7 @@ const Header = () => {
               onClick={() => {
                 router.push("/Student/Dashboard");
               }}
-              className={`flex items-center ${isMobile ? "text-sm px-1" : "px-3"} ${
+              className={`flex items-center ${isMobile ? "text-sm px-2" : "px-3"} ${
                 theme === "dark" ? "bg-red-800" : "bg-red-400"
               } py-2 rounded-lg shadow-lg text-white font-bold hover:cursor-pointer hover:scale-105 transition`}
             >
