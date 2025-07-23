@@ -131,10 +131,12 @@ const Dashboard = () => {
             <button
               className={`font-bold px-3 py-1 rounded-md outline-2 hover:cursor-pointer focus:outline-2 focus:outline-offset-2 ${
                 viewNoticesButton
-                  ? (theme === "dark"
+                  ? theme === "dark"
                     ? "bg-red-800 text-white outline-red-800 focus:outline-red-800 text-red-800"
-                    : "bg-red-400 text-white outline-red-400 focus:outline-red-500 text-red-500")
-                  : (theme === "dark" ? "bg-white text-black" : "outline-red-400 focus:outline-red-500 text-red-500")
+                    : "bg-red-400 text-white outline-red-400 focus:outline-red-500 text-red-500"
+                  : theme === "dark"
+                  ? "bg-white text-black"
+                  : "outline-red-400 focus:outline-red-500 text-red-500"
               } transition`}
               onClick={handleViewNoticesButton}
             >
@@ -143,10 +145,12 @@ const Dashboard = () => {
             <button
               className={`font-bold px-3 py-1 rounded-md outline-2 hover:cursor-pointer focus:outline-2 focus:outline-offset-2 ${
                 verifyCirculateButton
-                  ? (theme === "dark"
+                  ? theme === "dark"
                     ? "bg-red-800 text-white outline-red-800 focus:outline-red-800 text-red-800"
-                    : "bg-red-400 text-white outline-red-400 focus:outline-red-500 text-red-500")
-                  : (theme === "dark" ? "bg-white text-black" : "outline-red-400 focus:outline-red-500 text-red-500")
+                    : "bg-red-400 text-white outline-red-400 focus:outline-red-500 text-red-500"
+                  : theme === "dark"
+                  ? "bg-white text-black"
+                  : "outline-red-400 focus:outline-red-500 text-red-500"
               } transition`}
               onClick={handleVerifyCirculateButton}
             >
@@ -166,7 +170,9 @@ const Dashboard = () => {
           {viewNoticesButton ? (
             <>
               <div
-                className={`${theme === "dark" ? "bg-gray-900" : null} w-98/100 md:w-9/10 m-auto h-fit min-h-[500px] mb-7 pb-7 border border-1 border-red-100 shadow-lg rounded-lg mt-5 px-3`}
+                className={`${
+                  theme === "dark" ? "bg-gray-900" : null
+                } w-98/100 md:w-9/10 m-auto h-fit min-h-[500px] mb-7 pb-7 border border-1 border-red-100 shadow-lg rounded-lg mt-5 px-3`}
               >
                 <div className="px-3 py-2 text-center text-lg font-bold">
                   Notices
@@ -176,12 +182,15 @@ const Dashboard = () => {
                     <ul className="space-y-4">
                       {(Array.isArray(files) ? [...files].reverse() : []).map(
                         (file, index) => (
-                          <li key={index} className="px-4">
+                          <li
+                            key={index}
+                            className={isMobile ? "px-1" : "px-4"}
+                          >
                             <div className="flex w-full">
                               <div className="flex items-center w-90/100 text-lg">
                                 {file.name}
                               </div>
-                              <div className="flex my-1 justify-center items-center w-10/100">
+                              <div className="flex my-1 justify-end items-center w-10/100">
                                 <a
                                   href={`${file.ipfs}`}
                                   target="_blank"
@@ -286,7 +295,11 @@ const Dashboard = () => {
                       }
                       verifyFile(hash);
                     }}
-                    className={`${theme === "dark" ? "outline-red-800 bg-red-800 text-white hover:bg-red-700" : "outline-red-400 bg-red-400 text-white hover:bg-red-500"} flex justify-center items-center px-3 py-1 rounded-md font-bold mt-2 w-fit m-auto hover:cursor-pointer transition`}
+                    className={`${
+                      theme === "dark"
+                        ? "outline-red-800 bg-red-800 text-white hover:bg-red-700"
+                        : "outline-red-400 bg-red-400 text-white hover:bg-red-500"
+                    } flex justify-center items-center px-3 py-1 rounded-md font-bold mt-2 w-fit m-auto hover:cursor-pointer transition`}
                   >
                     {"Verify"}
                   </button>

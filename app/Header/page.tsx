@@ -63,7 +63,7 @@ const Header = () => {
         >
           <Image
             src={isMobile ? favicon : theme === "dark" ? darkLogo : logo}
-            height={isMobile ? 70 : 110}
+            height={isMobile ? 60 : 110}
             className={`${isMobile ? "px-2" : "px-7"} py-2`}
             alt="dwelp."
           ></Image>
@@ -72,12 +72,12 @@ const Header = () => {
               onClick={() => {
                 router.push("/Student/Dashboard");
               }}
-              className={`flex items-center ${isMobile ? "text-sm" : null} ${
+              className={`flex items-center ${isMobile ? "text-sm px-1" : "px-3"} ${
                 theme === "dark" ? "bg-red-800" : "bg-red-400"
-              } px-3 py-2 rounded-lg shadow-lg text-white font-bold hover:cursor-pointer hover:scale-105 transition`}
+              } py-2 rounded-lg shadow-lg text-white font-bold hover:cursor-pointer hover:scale-105 transition`}
             >
               {isMobile ? (
-                <p>Student Dash</p>
+                <p>Student Dashboard</p>
               ) : (
                 <p>Go to Student Dashboard</p>
               )}
