@@ -158,7 +158,11 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className={`${theme === "dark" ? "bg-gray-800 text-white" : null}`}>
+      <div
+        className={`${
+          theme === "dark" ? "bg-gray-800 text-white" : null
+        } transition`}
+      >
         <div className="sticky left-0 top-0 z-10 backdrop-blur-md">
           <Header />
         </div>
@@ -214,17 +218,23 @@ const Dashboard = () => {
               <div
                 className={`${
                   theme === "dark" ? "bg-gray-900" : null
-                } sm:w-98/100 md:w-9/10 m-auto h-fit min-h-[500px] mb-7 pb-7 border border-1 border-red-100 shadow-lg rounded-lg mt-5 px-3`}
+                } sm:w-98/100 md:w-9/10 m-auto h-fit min-h-[500px] mb-7 pb-7 border border-1 border-red-100 shadow-lg rounded-lg mt-5 px-3 transition`}
               >
                 <div className="px-3 py-2 text-center text-lg font-bold">
                   Notices
                 </div>
                 {!address ? (
-                  <div className="m-auto flex justify-end mr-1 mb-2 text-white px-2 py-1 bg-red-400 w-fit rounded-md">
+                  <div
+                    className={`${
+                      theme === "dark" ? "bg-red-800" : "bg-red-400"
+                    } m-auto flex justify-end mr-1 mb-2 text-white px-2 py-1 w-fit rounded-md transition`}
+                  >
                     <select
                       id="chainIdSelection"
                       onChange={handleCurrentChainId}
-                      className="bg-red-400 text-white outline-none border-none focus:ring-0"
+                      className={`${
+                        theme === "dark" ? "bg-red-800" : "bg-red-400"
+                      } text-white outline-none border-none focus:ring-0 transition`}
                     >
                       <option>Polygon Amoy</option>
                       <option>SepoliaETH</option>
@@ -291,7 +301,7 @@ const Dashboard = () => {
               <div
                 className={`${
                   theme === "dark" ? "bg-gray-900" : "bg-white"
-                } sm:w-98/100 md:w-9/10 m-auto h-[500px] border border-1 border-red-100 shadow-lg mb-7 rounded-lg mt-5`}
+                } sm:w-98/100 md:w-9/10 m-auto h-[500px] border border-1 border-red-100 shadow-lg mb-7 rounded-lg mt-5 transition`}
               >
                 <div className="px-3 py-2 text-center text-lg font-bold">
                   Verify Notice
@@ -304,7 +314,7 @@ const Dashboard = () => {
                     theme === "dark"
                       ? "border-white-200 text-white bg-gray-800"
                       : "border-red-200 text-red-800 bg-red-50"
-                  } font-semibold text-lg border-2 border-dashed rounded-md w-9/10 md:w-[400px] h-[200px] m-auto flex flex-col justify-center items-center hover:cursor-pointer`}
+                  } font-semibold text-lg border-2 border-dashed rounded-md w-9/10 md:w-[400px] h-[200px] m-auto flex flex-col justify-center items-center hover:cursor-pointer transition`}
                 >
                   {file ? (
                     <>

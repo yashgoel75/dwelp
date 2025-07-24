@@ -168,7 +168,7 @@ const Dashboard = () => {
       <div
         className={`w-full ${
           theme === "dark" ? "bg-gray-800 text-white" : null
-        }`}
+        } transition`}
       >
         <div className="sticky left-0 top-0 z-10 backdrop-blur-md">
           <Header />
@@ -176,15 +176,21 @@ const Dashboard = () => {
         </div>
 
         {chainId != 80002 && isSepoliaDisclaimer ? (
-          <div className={`${theme === "dark" ? "text-red-800 bg-white" : "text-red-500 bg-amber-100"} flex justify-center m-auto rounded-md px-5 py-1 text-sm md:text-base text-center w-95/100 md:w-fit`}>
+          <div
+            className={`${
+              theme === "dark"
+                ? "text-red-800 bg-white"
+                : "text-red-500 bg-amber-100"
+            } flex justify-center m-auto rounded-md px-5 py-1 text-sm md:text-base text-center w-95/100 md:w-fit transition`}
+          >
             <div>
-              You&apos;re currently on the Sepolia Testnet. For lower gas fees and
-              faster transactions, consider switching to Polygon Amoy.
+              You&apos;re currently on the Sepolia Testnet. For lower gas fees
+              and faster transactions, consider switching to Polygon Amoy.
             </div>
             <div
               className={`${
                 theme === "dark" ? "bg-red-800" : "bg-red-400"
-              } rounded-full flex justify-center items-center ml-5 hover:cursor-pointer w-[24px] h-[24px]`}
+              } rounded-full flex justify-center items-center ml-5 hover:cursor-pointer w-[24px] h-[24px] transition`}
               onClick={() => setIsSepoliaDisclaimer(false)}
             >
               <svg
@@ -242,7 +248,7 @@ const Dashboard = () => {
                   isWriteContractSuccess
                     ? "h-[705px]"
                     : "h-[670px]"
-                } mb-7 border border-1 shadow-lg rounded-lg mt-5`}
+                } mb-7 border border-1 shadow-lg rounded-lg mt-5 transition`}
               >
                 <div className="px-3 py-2 text-center text-lg font-bold">
                   Circulate Notice
@@ -255,7 +261,7 @@ const Dashboard = () => {
                     theme === "dark"
                       ? "bg-gray-800 text-white border-white-200"
                       : "text-red-800 bg-red-50 border-red-200"
-                  } font-semibold text-lg border-2 border-dashed rounded-md w-9/10 md:w-[400px] h-[200px] m-auto flex flex-col justify-center items-center hover:cursor-pointer`}
+                  } font-semibold text-lg border-2 border-dashed rounded-md w-9/10 md:w-[400px] h-[200px] m-auto flex flex-col justify-center items-center hover:cursor-pointer transition`}
                 >
                   {file ? (
                     <>
@@ -293,7 +299,7 @@ const Dashboard = () => {
                 <div
                   className={`${
                     theme === "dark" ? "bg-gray-900 text-white" : null
-                  } text-center mt-1 text-red-600 font-semibold font-[Poppins]`}
+                  } text-center mt-1 text-red-600 font-semibold font-[Poppins] transition`}
                 >
                   Max file size: 25 MB
                 </div>
@@ -363,7 +369,7 @@ const Dashboard = () => {
                       theme === "dark"
                         ? "bg-gray-900 text-white"
                         : "border-red-400 outline-red-400"
-                    } flex justify-center items-center border-1 outline-offset-1 rounded-md`}
+                    } flex justify-center items-center border-1 outline-offset-1 rounded-md transition`}
                   >
                     <input
                       placeholder="Semester 4 (Batch 2023-27) - Fee Notice (July 12, 2025)"
@@ -420,7 +426,7 @@ const Dashboard = () => {
                         theme === "dark"
                           ? "bg-gray-900 text-white"
                           : "border-red-400 outline-red-400"
-                      } flex justify-center items-center border-1 outline-offset-1 rounded-md`}
+                      } flex justify-center items-center border-1 outline-offset-1 rounded-md transition`}
                     >
                       <input
                         readOnly
@@ -477,7 +483,7 @@ const Dashboard = () => {
                       theme === "dark"
                         ? "bg-gray-900 text-white"
                         : "border-red-400 outline-red-400"
-                    } flex border-1 outline-offset-1 rounded-md`}
+                    } flex border-1 outline-offset-1 rounded-md transition`}
                   >
                     <input
                       readOnly
@@ -535,7 +541,7 @@ const Dashboard = () => {
                       theme === "dark"
                         ? "bg-gray-900 text-white"
                         : "border-red-400 outline-red-400"
-                    } flex border-1 outline-offset-1 rounded-md`}
+                    } flex border-1 outline-offset-1 rounded-md transition`}
                   >
                     <input
                       readOnly
@@ -589,63 +595,14 @@ const Dashboard = () => {
                       url && !uploading
                         ? "hover:cursor-pointer"
                         : "opacity-50 disabled hover:cursor-not-allowed"
-                    }`}
+                    } transition`}
                   >
                     Go to the file
                   </div>
                 </div>
               </div>
             </>
-          ) : // <>
-          //   <div className="w-9/10 m-auto min-h-[500px] h-fit border border-1 border-red-100 shadow-lg rounded-lg mt-5 pb-8 mb-8">
-          //     <div className="px-3 py-2 text-center text-lg font-bold">
-          //       Send Mail
-          //     </div>
-          //     <div className="w-95/100 m-auto mt-2 flex flex-col">
-          //       <label>
-          //         <strong>To:</strong>
-          //       </label>
-          //       <input className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md"></input>
-          //     </div>
-          //     <div className="w-95/100 m-auto mt-2 flex flex-col">
-          //       <label>
-          //         <strong>Cc:</strong>
-          //       </label>
-          //       <input className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md"></input>
-          //     </div>
-          //     <div className="w-95/100 m-auto mt-2 flex flex-col">
-          //       <label>
-          //         <strong>Bcc:</strong>
-          //       </label>
-          //       <input className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md"></input>
-          //     </div>
-          //     <div className="w-95/100 m-auto mt-2 flex flex-col">
-          //       <label>
-          //         <strong>Subject:</strong>
-          //       </label>
-          //       <input className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md"></input>
-          //     </div>
-          //     <div className="w-95/100 m-auto mt-2 flex flex-col">
-          //       <label>
-          //         <strong>Body:</strong>
-          //       </label>
-          //       <textarea className="rounded-md outline-none outline-offset-1 px-3 py-1 border-red-400 w-full border-1 border-red-400 outline-red-400 outline-offset-1 rounded-md" />
-          //       </div>
-          //       <div>
-          //       <button
-          //         onClick={uploadFile}
-          //         className={`mt-4 flex justify-center items-center px-3 py-1 outline-red-400 rounded-md bg-red-400 text-white font-bold mt-2 w-fit m-auto hover:bg-red-500 transition ${
-          //           uploading
-          //             ? "opacity-50 hover:cursor-not-allowed"
-          //             : "hover:cursor-pointer"
-          //         }`}
-          //       >
-          //         {uploading ? "Uploading" : "Sign and Send"}
-          //       </button>
-          //     </div>
-          //   </div>
-          // </>
-          null}
+          ) : null}
         </div>
         <Footer />
       </div>

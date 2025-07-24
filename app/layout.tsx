@@ -15,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased`}>
-        <App><ThemeProvider>{children}</ThemeProvider></App>
+        <App>
+          <ThemeProvider>{children}</ThemeProvider>
+        </App>
       </body>
     </html>
   );

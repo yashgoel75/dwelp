@@ -10,6 +10,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import favicon from "@/app/favicon.ico";
 import { useTheme } from "../context/theme";
 import darkLogo from "@/app/assets/dwelpLogoDark.png";
+import "./page.css";
 
 const Header = () => {
   console.log("Current theme: ", useTheme().theme);
@@ -50,9 +51,104 @@ const Header = () => {
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+  const [showMobileNavigation, setIsShowNavigation] = useState(false);
   return (
     <>
+      {showMobileNavigation ? (
+        <div
+          className={`${
+            theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100"
+          }`}
+        >
+          <div
+            className={`${
+              theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 "
+            } navigationOnMobile ${
+              showMobileNavigation ? "slide-down" : "slide-up"
+            } rounded-b-xl shadow-lg w-95/100 flex flex-col pb-5`}
+          >
+            <div
+              className={`${
+                theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100"
+              } flex justify-between ${
+                isMobile ? "w-98/100" : "w-9/10"
+              } m-auto items-center`}
+            >
+              <Image
+                src={isMobile ? favicon : theme === "dark" ? darkLogo : logo}
+                height={isMobile ? 60 : 110}
+                className={`${isMobile ? "px-2" : "px-7"} py-2`}
+                alt="dwelp."
+              ></Image>
+              <div
+                className="flex lg:hidden"
+                onClick={() => setIsShowNavigation(false)}
+              >
+                <svg
+                  className="mr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 -960 960 960"
+                  width="24px"
+                  fill={theme === "dark" ? "#ffffff" : "#000000"}
+                >
+                  <path d="M256-213.85 213.85-256l224-224-224-224L256-746.15l224 224 224-224L746.15-704l-224 224 224 224L704-213.85l-224-224-224 224Z" />
+                </svg>
+              </div>
+            </div>
+            <div
+              className={`${
+                theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100"
+              } w-95/100 flex flex-col gap-2`}
+            >
+              <div
+                className="flex gap-2 items-center text-lg"
+                onClick={() => {
+                  router.push("/Student/Dashboard");
+                }}
+              >
+                <div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 -960 960 960"
+                    width="24px"
+                    fill={theme === "dark" ? "#ffffff" : "#000000"}
+                  >
+                    <path d="M480-166.16 220-307.39v-216.92L81.54-600 480-816.92 878.46-600v287.69h-60v-254.46L740-524.31v216.92L480-166.16ZM480-452l273.62-148L480-748 206.38-600 480-452Zm0 217.54 200-108v-149.85L480-383.15 280-492.31v149.85l200 108ZM480-452Zm0 72.31Zm0 0Z" />
+                  </svg>
+                </div>
+                <div>Go to Student Dashboard</div>
+              </div>
+              <div className="flex gap-2 items-center text-lg">
+                <div
+                  onClick={() => {
+                    router.push("/Student/Dashboard");
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 -960 960 960"
+                    width="24px"
+                    fill={theme === "dark" ? "#ffffff" : "#000000"}
+                  >
+                    <path d="M480.07-100q-78.84 0-148.21-29.92t-120.68-81.21q-51.31-51.29-81.25-120.63Q100-401.1 100-479.93q0-78.84 29.92-148.21t81.21-120.68q51.29-51.31 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.92t120.68 81.21q51.31 51.29 81.25 120.63Q860-558.9 860-480.07q0 78.84-29.92 148.21t-81.21 120.68q-51.29 51.31-120.63 81.25Q558.9-100 480.07-100ZM510-161.85q121.31-11.53 205.65-101.42Q800-353.15 800-480t-83.96-216.35q-83.96-89.5-206.04-101.8v636.3Z" />
+                  </svg>
+                </div>
+                <div onClick={toggleTheme}>
+                  {theme === "dark" ? (
+                    <p>Switch to Light Mode</p>
+                  ) : (
+                    <p>Switch to Dark Mode</p>
+                  )}
+                </div>
+              </div>
+              <ConnectButton chainStatus="full" accountStatus="avatar" />
+            </div>
+          </div>
+        </div>
+      ) : null}
       <div className={`${theme === "dark" ? "bg-gray-900 text-white" : null}`}>
         <div
           className={`${
@@ -67,7 +163,22 @@ const Header = () => {
             className={`${isMobile ? "px-2" : "px-7"} py-2`}
             alt="dwelp."
           ></Image>
-          <div className="flex gap-4 items-center">
+          <div
+            className="flex lg:hidden"
+            onClick={() => setIsShowNavigation(true)}
+          >
+            <svg
+              className="mr-2"
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill={theme === "dark" ? "#ffffff" : "#000000"}
+            >
+              <path d="M140-254.62v-59.99h680v59.99H140ZM140-450v-60h680v60H140Zm0-195.39v-59.99h680v59.99H140Z" />
+            </svg>
+          </div>
+          <div className="flex gap-4 items-center hidden lg:flex">
             <div
               onClick={() => {
                 router.push("/Student/Dashboard");
