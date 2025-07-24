@@ -22,6 +22,8 @@ const Dashboard = () => {
   const DWELP_ADDRESS_SEPOLIA = "0x9c1aff609b8bae87bb6869a97a2672e0d3f337e6";
   const [DWELP_ADDRESS, setDWELP_ADDRESS] = useState("0x");
   const [chainIdToUse, setChainIdToUse] = useState(80002);
+  const [selectedChain, setSelectedChain] = useState("Polygon Amoy");
+
   console.log("wagmi's chain: ", chainId);
   useEffect(() => {
     if (address) {
@@ -148,6 +150,7 @@ const Dashboard = () => {
 
   const handleCurrentChainId = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const currentChain = e.target.value;
+    setSelectedChain(currentChain);
     console.log(currentChain);
     if (currentChain === "Polygon Amoy") {
       setCurrentChainId(80002);
@@ -227,10 +230,11 @@ const Dashboard = () => {
                   <div
                     className={`${
                       theme === "dark" ? "bg-red-800" : "bg-red-400"
-                    } m-auto flex justify-end mr-1 mb-2 text-white px-2 py-1 w-fit rounded-md transition`}
+                    } m-auto flex justify-end mb-2 text-white px-2 py-1 w-fit rounded-md transition`}
                   >
                     <select
                       id="chainIdSelection"
+                      value={selectedChain}
                       onChange={handleCurrentChainId}
                       className={`${
                         theme === "dark" ? "bg-red-800" : "bg-red-400"
@@ -306,6 +310,25 @@ const Dashboard = () => {
                 <div className="px-3 py-2 text-center text-lg font-bold">
                   Verify Notice
                 </div>
+                {!address ? (
+                  <div
+                    className={`${
+                      theme === "dark" ? "bg-red-800" : "bg-red-400"
+                    } m-auto flex justify-end mb-2 text-white px-2 py-1 w-fit rounded-md transition`}
+                  >
+                    <select
+                      id="chainIdSelection"
+                      value={selectedChain}
+                      onChange={handleCurrentChainId}
+                      className={`${
+                        theme === "dark" ? "bg-red-800" : "bg-red-400"
+                      } text-white outline-none border-none focus:ring-0 transition`}
+                    >
+                      <option>Polygon Amoy</option>
+                      <option>SepoliaETH</option>
+                    </select>
+                  </div>
+                ) : null}
                 <div
                   onClick={() => {
                     fileInputRef.current?.click();

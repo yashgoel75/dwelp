@@ -10,6 +10,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import favicon from "@/app/favicon.ico";
 import logoDark from "@/app/assets/dwelpLogoDark.png";
 import { useTheme } from "@/app/context/theme";
+
 import "./page.css";
 
 const Header = () => {
@@ -142,7 +143,11 @@ const Header = () => {
           </div>
         </div>
       ) : null}
-      <div className={`${theme === "dark" ? "bg-gray-900 text-white" : null} transition`}>
+      <div
+        className={`${
+          theme === "dark" ? "bg-gray-900 text-white" : null
+        } transition`}
+      >
         {isFetched && isConnected && isAdmin ? (
           <>
             <div
@@ -226,24 +231,26 @@ const Header = () => {
                 alt="dwelp logo"
               />
             </div>
-            <div
-              title={
-                theme === "dark"
-                  ? "Switch to Light Mode"
-                  : "Switch to Dark Mode"
-              }
-            >
-              <svg
-                className="mr-7 transition"
-                xmlns="http://www.w3.org/2000/svg"
-                height="28px"
-                viewBox="0 -960 960 960"
-                width="28px"
-                fill={theme === "dark" ? "#ffffff" : "#000000"}
-                onClick={toggleTheme}
+            <div className="flex gap-3">
+              <div
+                title={
+                  theme === "dark"
+                    ? "Switch to Light Mode"
+                    : "Switch to Dark Mode"
+                }
               >
-                <path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm40-83q119-15 199.5-104.5T800-480q0-123-80.5-212.5T520-797v634Z" />
-              </svg>
+                <svg
+                  className="mr-7 transition"
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="28px"
+                  viewBox="0 -960 960 960"
+                  width="28px"
+                  fill={theme === "dark" ? "#ffffff" : "#000000"}
+                  onClick={toggleTheme}
+                >
+                  <path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm40-83q119-15 199.5-104.5T800-480q0-123-80.5-212.5T520-797v634Z" />
+                </svg>
+              </div>
             </div>
           </div>
         )}
