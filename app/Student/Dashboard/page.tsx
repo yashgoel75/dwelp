@@ -240,7 +240,7 @@ const Dashboard = () => {
                             className={isMobile ? "px-1" : "px-4"}
                           >
                             <div className="flex w-full">
-                              <div className="flex items-center md:w-90/100 text-lg wrap">
+                              <div className={`${isMobile ? "text-sm" : "text-lg"} flex items-center md:w-90/100 wrap`}>
                                 {file.name}
                               </div>
                               <div className="flex my-1 justify-end items-center 30/100 md:w-10/100">
