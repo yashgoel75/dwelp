@@ -48,7 +48,7 @@ const Header = () => {
             <div
               className={`${
                 theme === "dark" ? "bg-gray-900 text-white" : null
-              } flex justify-between w-95/100 md:w-9/10 m-auto items-center`}
+              } flex justify-between w-98/100 md:w-9/10 m-auto items-center`}
             >
               <Image
                 src={isMobile ? favicon : theme === "dark" ? logoDark : logo}
@@ -59,18 +59,18 @@ const Header = () => {
               <div className="flex gap-4 items-center">
                 <div
                   onClick={() => router.push("/Dashboard")}
-                  className={`${isMobile ? "text-sm" : null} ${
+                  className={`${isMobile ? "text-sm px-2" : "px-3"} ${
                     theme === "dark" ? "bg-red-800" : "bg-red-400"
-                  } flex items-center px-3 py-2 rounded-lg shadow-lg text-white font-bold hover:cursor-pointer hover:scale-105 transition`}
+                  } flex items-center py-2 rounded-lg shadow-lg text-white font-bold hover:cursor-pointer hover:scale-105 transition`}
                 >
                   {isMobile ? (
-                    <p>Admin Dashboard</p>
+                    <p>Admin Portal</p>
                   ) : (
                     <p>Go to Admin Dashboard</p>
                   )}
                 </div>
                 <div>
-                  <ConnectButton chainStatus="none" accountStatus="avatar" />
+                  <ConnectButton chainStatus={isMobile ? "icon" : "full"} accountStatus="avatar" />
                 </div>
                 <div
                   title={
@@ -82,9 +82,9 @@ const Header = () => {
                   <svg
                     className={`${isMobile ? "mr-2" : "mr-7"}`}
                     xmlns="http://www.w3.org/2000/svg"
-                    height="28px"
+                    height={isMobile ? "24px" : "28px"}
                     viewBox="0 -960 960 960"
-                    width="28px"
+                    width={isMobile ? "24px" : "28px"}
                     fill={theme === "dark" ? "#ffffff" : "#000000"}
                     onClick={toggleTheme}
                   >

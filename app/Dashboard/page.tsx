@@ -1,17 +1,41 @@
 "use client";
 import Header from "../Header/page";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useAccount, useWriteContract } from "wagmi";
 import { dwelpAbi } from "../constants/dwelpAbi";
-import { publicClient } from "@/utils/viemConfig";
-import { polygonAmoy } from "viem/chains";
+import { usePublicClientByChain } from "@/utils/viemConfig";
 import Footer from "../Footer/page";
 import { useTheme } from "../context/theme";
+import { useChainId } from "wagmi";
+import { sepolia } from "viem/chains";
+
 const Dashboard = () => {
+  const publicClient = usePublicClientByChain();
+  const chainId = useChainId();
+
+  useEffect(() => {
+    console.log("Current Chain ID:", chainId);
+  }, [chainId]);
   const { theme } = useTheme();
   const { address } = useAccount();
   const { writeContractAsync } = useWriteContract();
-  const DWELP_ADDRESS = "0x82f7af6b80b556bf98a1ff0859d9fb2581633235";
+  const DWELP_ADDRESS_POLYGONAMOY =
+    "0x82f7af6b80b556bf98a1ff0859d9fb2581633235";
+  const DWELP_ADDRESS_SEPOLIA = "0x71c13b050790d8d37cf9a867d62ef32e407dca33";
+
+  const [DWELP_ADDRESS, setDWELP_ADDRESS] = useState("");
+  const [isSepoliaDisclaimer, setIsSepoliaDisclaimer] = useState(true);
+
+  useEffect(() => {
+    if (chainId === 80002) {
+      setDWELP_ADDRESS(DWELP_ADDRESS_POLYGONAMOY);
+      console.log(DWELP_ADDRESS);
+    } else {
+      setDWELP_ADDRESS(DWELP_ADDRESS_SEPOLIA);
+      setIsSepoliaDisclaimer(true);
+      console.log("DWELP ADDRESS: ", DWELP_ADDRESS);
+    }
+  }, [chainId]);
 
   const [circulateButton, setCirculateButton] = useState(true);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -102,12 +126,12 @@ const Dashboard = () => {
       setUploading(false);
       console.log("URL: ", signedUrl);
       const writeContractHash = await writeContractAsync({
-        address: DWELP_ADDRESS,
+        address: DWELP_ADDRESS as `0x${string}`,
         abi: dwelpAbi,
         functionName: "addFile",
         args: [hash, fileName, signature, signedUrl],
         account: address,
-        chain: polygonAmoy,
+        chainId: chainId,
       });
 
       console.log("Transaction hash:", writeContractHash);
@@ -152,6 +176,30 @@ const Dashboard = () => {
           <div className="border border-1 border-gray-300 mb-2"></div>
         </div>
 
+        {chainId != 80002 && isSepoliaDisclaimer ? (
+          <div className={`${theme === "dark" ? "text-red-800 bg-white" : "text-red-500 bg-amber-100"} flex justify-center m-auto rounded-md px-5 py-1 text-sm md:text-base text-center w-95/100 md:w-fit`}>
+            <div>
+              You're currently on the Sepolia Testnet. For lower gas fees and
+              faster transactions, consider switching to Polygon Amoy.
+            </div>
+            <div
+              className={`${
+                theme === "dark" ? "bg-red-800" : "bg-red-400"
+              } rounded-full flex justify-center items-center ml-5 hover:cursor-pointer w-[24px] h-[24px]`}
+              onClick={() => setIsSepoliaDisclaimer(false)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24px"
+                viewBox="0 -960 960 960"
+                width="24px"
+                fill="#ffffff"
+              >
+                <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+              </svg>
+            </div>
+          </div>
+        ) : null}
         <div className="w-11/12 m-auto">
           <div className="text-center text-2xl mt-5">
             <strong>Dwelp. University</strong>
@@ -254,7 +302,9 @@ const Dashboard = () => {
                   <button
                     onClick={uploadFile}
                     className={`${
-                      theme === "dark" ? "bg-red-800 outline-red-800 hover:bg-red-700" : "bg-red-400 outline-red-400 hover:bg-red-500"
+                      theme === "dark"
+                        ? "bg-red-800 outline-red-800 hover:bg-red-700"
+                        : "bg-red-400 outline-red-400 hover:bg-red-500"
                     } flex justify-center items-center px-3 py-1 rounded-md text-white font-bold mt-2 w-fit m-auto transition ${
                       uploading
                         ? "opacity-50 hover:cursor-not-allowed"

@@ -6,15 +6,45 @@ import { useReadContract } from "wagmi";
 import { dwelpAbi } from "@/app/constants/dwelpAbi";
 import Footer from "@/app/Footer/page";
 import { useTheme } from "@/app/context/theme";
-
+import { useChainId } from "wagmi";
+import { useAccount } from "wagmi";
 const Dashboard = () => {
+  const { address } = useAccount();
+  const chainId = useChainId();
   const { theme } = useTheme();
   interface FileType {
     name: string;
     ipfs: string;
   }
+  const [currentChainId, setCurrentChainId] = useState(80002);
+  const DWELP_ADDRESS_POLYGONAMOY =
+    "0x82f7af6b80b556bf98a1ff0859d9fb2581633235";
+  const DWELP_ADDRESS_SEPOLIA = "0x71c13b050790d8d37cf9a867d62ef32e407dca33";
+  const [DWELP_ADDRESS, setDWELP_ADDRESS] = useState("0x");
+  const [chainIdToUse, setChainIdToUse] = useState(80002);
+  console.log("wagmi's chain: ", chainId);
+  useEffect(() => {
+    if (address) {
+      setChainIdToUse(chainId);
+      if (chainId === 80002) {
+        setDWELP_ADDRESS(DWELP_ADDRESS_POLYGONAMOY);
+        console.log("DWELP_ADDRESS: ", DWELP_ADDRESS);
+      } else {
+        setDWELP_ADDRESS(DWELP_ADDRESS_SEPOLIA);
+        console.log("DWELP_ADDRESS: ", DWELP_ADDRESS);
+      }
+    } else {
+      setChainIdToUse(currentChainId);
+      if (currentChainId === 80002) {
+        setDWELP_ADDRESS(DWELP_ADDRESS_POLYGONAMOY);
+        console.log("DWELP_ADDRESS: ", DWELP_ADDRESS);
+      } else {
+        setDWELP_ADDRESS(DWELP_ADDRESS_SEPOLIA);
+        console.log("DWELP_ADDRESS: ", DWELP_ADDRESS);
+      }
+    }
+  }, [chainId, currentChainId]);
 
-  const DWELP_ADDRESS = "0x82f7af6b80b556bf98a1ff0859d9fb2581633235";
   const [viewNoticesButton, setViewNoticesButton] = useState(false);
   const [verifyCirculateButton, setVerifyCirculateButton] = useState(true);
   const [verifyEmailButton, setVerifyEmailButton] = useState(false);
@@ -55,13 +85,15 @@ const Dashboard = () => {
     setHash(hashHex);
   };
   console.log("Hash: ", hash);
+
   const { data: fileData, isLoading: isSignatureLoading } = useReadContract({
     abi: dwelpAbi,
-    address: DWELP_ADDRESS,
+    address: DWELP_ADDRESS as `0x${string}`,
     functionName: "getFile",
     args: [hash],
-    chainId: 80002,
+    chainId: chainIdToUse,
   });
+  console.log("Chain Id To use: ", chainIdToUse);
   console.log("Result:", fileData);
   if (!isSignatureLoading && !fileData) {
     console.log("Verification Failed");
@@ -92,9 +124,9 @@ const Dashboard = () => {
 
   const { data: files } = useReadContract({
     abi: dwelpAbi,
-    address: DWELP_ADDRESS,
+    address: DWELP_ADDRESS as `0x${string}`,
     functionName: "getFiles",
-    chainId: 80002,
+    chainId: chainIdToUse,
   }) as { data: FileType[] | undefined };
   console.log("Notice: ", files);
 
@@ -113,6 +145,16 @@ const Dashboard = () => {
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const handleCurrentChainId = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const currentChain = e.target.value;
+    console.log(currentChain);
+    if (currentChain === "Polygon Amoy") {
+      setCurrentChainId(80002);
+    } else {
+      setCurrentChainId(11155111);
+    }
+  };
 
   return (
     <>
@@ -177,6 +219,17 @@ const Dashboard = () => {
                 <div className="px-3 py-2 text-center text-lg font-bold">
                   Notices
                 </div>
+                {!address ? (
+                  <div className="m-auto flex justify-end mb-2 mr-4">
+                    <select
+                      id="chainIdSelection"
+                      onChange={handleCurrentChainId}
+                    >
+                      <option>Polygon Amoy</option>
+                      <option>SepoliaETH</option>
+                    </select>
+                  </div>
+                ) : null}
                 <div>
                   {Array.isArray(files) && files.length > 0 ? (
                     <ul className="space-y-4">
@@ -187,10 +240,10 @@ const Dashboard = () => {
                             className={isMobile ? "px-1" : "px-4"}
                           >
                             <div className="flex w-full">
-                              <div className="flex items-center w-90/100 text-lg">
+                              <div className="flex items-center md:w-90/100 text-lg wrap">
                                 {file.name}
                               </div>
-                              <div className="flex my-1 justify-end items-center w-10/100">
+                              <div className="flex my-1 justify-end items-center 30/100 md:w-10/100">
                                 <a
                                   href={`${file.ipfs}`}
                                   target="_blank"
