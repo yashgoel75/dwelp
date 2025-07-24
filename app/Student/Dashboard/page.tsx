@@ -220,17 +220,18 @@ const Dashboard = () => {
                   Notices
                 </div>
                 {!address ? (
-                  <div className="m-auto flex justify-end mb-2 mr-4">
+                  <div className="m-auto flex justify-end mr-1 mb-2 text-white px-2 py-1 bg-red-400 w-fit rounded-md">
                     <select
                       id="chainIdSelection"
                       onChange={handleCurrentChainId}
+                      className="bg-red-400 text-white outline-none border-none focus:ring-0"
                     >
                       <option>Polygon Amoy</option>
                       <option>SepoliaETH</option>
                     </select>
                   </div>
                 ) : null}
-                <div>
+                <div className="mt-2">
                   {Array.isArray(files) && files.length > 0 ? (
                     <ul className="space-y-4">
                       {(Array.isArray(files) ? [...files].reverse() : []).map(
@@ -240,10 +241,14 @@ const Dashboard = () => {
                             className={isMobile ? "px-1" : "px-4"}
                           >
                             <div className="flex w-full">
-                              <div className={`${isMobile ? "text-sm" : "text-lg"} flex items-center md:w-90/100 wrap`}>
+                              <div
+                                className={`${
+                                  isMobile ? "text-base" : "text-lg"
+                                } flex items-center w-70/100 md:w-90/100 wrap`}
+                              >
                                 {file.name}
                               </div>
-                              <div className="flex my-1 justify-end items-center 30/100 md:w-10/100">
+                              <div className="flex my-1 justify-end items-center w-30/100 md:w-10/100">
                                 <a
                                   href={`${file.ipfs}`}
                                   target="_blank"
