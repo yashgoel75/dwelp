@@ -49,26 +49,26 @@ const Header = () => {
         <div
           className={`${
             theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100"
-          }`}
+          } transition`}
         >
           <div
             className={`${
               theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 "
             } navigationOnMobile ${
               showMobileNavigation ? "slide-down" : "slide-up"
-            } rounded-b-xl shadow-lg w-95/100 flex flex-col pb-5`}
+            } rounded-b-xl shadow-lg w-95/100 flex flex-col pb-5 transition`}
           >
             <div
               className={`${
                 theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100"
               } flex justify-between ${
                 isMobile ? "w-98/100" : "w-9/10"
-              } m-auto items-center`}
+              } m-auto items-center transition`}
             >
               <Image
                 src={isMobile ? favicon : theme === "dark" ? logoDark : logo}
                 height={isMobile ? 60 : 110}
-                className={`${isMobile ? "px-2" : "px-7"} py-2`}
+                className={`${isMobile ? "px-2" : "px-7"} py-2 transition`}
                 alt="dwelp."
               ></Image>
               <div
@@ -76,7 +76,7 @@ const Header = () => {
                 onClick={() => setIsShowNavigation(false)}
               >
                 <svg
-                  className="mr-2"
+                  className="mr-2 transition"
                   xmlns="http://www.w3.org/2000/svg"
                   height="24px"
                   viewBox="0 -960 960 960"
@@ -90,7 +90,7 @@ const Header = () => {
             <div
               className={`${
                 theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100"
-              } w-95/100 flex flex-col gap-2`}
+              } w-95/100 flex flex-col gap-2 transition`}
             >
               <div
                 className="flex gap-2 items-center text-lg"
@@ -101,6 +101,7 @@ const Header = () => {
                 <div>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
+                    className="transition"
                     height="24px"
                     viewBox="0 -960 960 960"
                     width="24px"
@@ -119,6 +120,7 @@ const Header = () => {
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
+                    className="transition"
                     height="24px"
                     viewBox="0 -960 960 960"
                     width="24px"
@@ -140,18 +142,18 @@ const Header = () => {
           </div>
         </div>
       ) : null}
-      <div className={`${theme === "dark" ? "bg-gray-900 text-white" : null}`}>
+      <div className={`${theme === "dark" ? "bg-gray-900 text-white" : null} transition`}>
         {isFetched && isConnected && isAdmin ? (
           <>
             <div
               className={`${
                 theme === "dark" ? "bg-gray-900 text-white" : null
-              } flex justify-between w-98/100 md:w-9/10 m-auto items-center`}
+              } flex justify-between w-98/100 md:w-9/10 m-auto items-center transition`}
             >
               <Image
                 src={isMobile ? favicon : theme === "dark" ? logoDark : logo}
                 height={isMobile ? 60 : 110}
-                className={`${isMobile ? "px-2" : "px-7"} py-2`}
+                className={`${isMobile ? "px-2" : "px-7"} py-2 transition`}
                 alt="dwelp."
               ></Image>
               <div
@@ -159,7 +161,7 @@ const Header = () => {
                 onClick={() => setIsShowNavigation(true)}
               >
                 <svg
-                  className="mr-2"
+                  className="mr-2 transition"
                   xmlns="http://www.w3.org/2000/svg"
                   height="24px"
                   viewBox="0 -960 960 960"
@@ -196,7 +198,7 @@ const Header = () => {
                   }
                 >
                   <svg
-                    className={`${isMobile ? "mr-2" : "mr-7"}`}
+                    className={`${isMobile ? "mr-2" : "mr-7"} transition`}
                     xmlns="http://www.w3.org/2000/svg"
                     height={isMobile ? "24px" : "28px"}
                     viewBox="0 -960 960 960"
@@ -215,10 +217,10 @@ const Header = () => {
             <div
               className={`${
                 theme === "dark" ? "bg-gray-900 text-white" : null
-              } flex justify-center items-center`}
+              } flex justify-center items-center transition`}
             >
               <Image
-                className="px-7 py-2"
+                className="px-7 py-2 transition"
                 src={isMobile ? favicon : theme === "dark" ? logoDark : logo}
                 height={isMobile ? 90 : 110}
                 alt="dwelp logo"
@@ -232,7 +234,7 @@ const Header = () => {
               }
             >
               <svg
-                className="mr-7"
+                className="mr-7 transition"
                 xmlns="http://www.w3.org/2000/svg"
                 height="28px"
                 viewBox="0 -960 960 960"

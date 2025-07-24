@@ -20,7 +20,7 @@ const Dashboard = () => {
   const { writeContractAsync } = useWriteContract();
   const DWELP_ADDRESS_POLYGONAMOY =
     "0x82f7af6b80b556bf98a1ff0859d9fb2581633235";
-  const DWELP_ADDRESS_SEPOLIA = "0x71c13b050790d8d37cf9a867d62ef32e407dca33";
+  const DWELP_ADDRESS_SEPOLIA = "0x9c1aff609b8bae87bb6869a97a2672e0d3f337e6";
 
   const [DWELP_ADDRESS, setDWELP_ADDRESS] = useState("");
   const [isSepoliaDisclaimer, setIsSepoliaDisclaimer] = useState(true);
@@ -184,7 +184,7 @@ const Dashboard = () => {
             } flex justify-center m-auto rounded-md px-5 py-1 text-sm md:text-base text-center w-95/100 md:w-fit transition`}
           >
             <div>
-              You&apos;re currently on the Sepolia Testnet. For lower gas fees
+              You&apos;re currently on the <u>Sepolia Testnet</u>. For lower gas fees
               and faster transactions, consider switching to Polygon Amoy.
             </div>
             <div
@@ -382,7 +382,7 @@ const Dashboard = () => {
                     />
                     <button
                       onClick={(e) => {
-                        navigator.clipboard.writeText(hash);
+                        navigator.clipboard.writeText(fileName);
 
                         const button = e.currentTarget;
                         const svg = button.querySelector("svg");

@@ -19,7 +19,7 @@ const Dashboard = () => {
   const [currentChainId, setCurrentChainId] = useState(80002);
   const DWELP_ADDRESS_POLYGONAMOY =
     "0x82f7af6b80b556bf98a1ff0859d9fb2581633235";
-  const DWELP_ADDRESS_SEPOLIA = "0x71c13b050790d8d37cf9a867d62ef32e407dca33";
+  const DWELP_ADDRESS_SEPOLIA = "0x9c1aff609b8bae87bb6869a97a2672e0d3f337e6";
   const [DWELP_ADDRESS, setDWELP_ADDRESS] = useState("0x");
   const [chainIdToUse, setChainIdToUse] = useState(80002);
   console.log("wagmi's chain: ", chainId);
