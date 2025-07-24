@@ -7,7 +7,6 @@ import { usePublicClientByChain } from "@/utils/viemConfig";
 import Footer from "../Footer/page";
 import { useTheme } from "../context/theme";
 import { useChainId } from "wagmi";
-import { sepolia } from "viem/chains";
 
 const Dashboard = () => {
   const publicClient = usePublicClientByChain();
@@ -179,7 +178,7 @@ const Dashboard = () => {
         {chainId != 80002 && isSepoliaDisclaimer ? (
           <div className={`${theme === "dark" ? "text-red-800 bg-white" : "text-red-500 bg-amber-100"} flex justify-center m-auto rounded-md px-5 py-1 text-sm md:text-base text-center w-95/100 md:w-fit`}>
             <div>
-              You're currently on the Sepolia Testnet. For lower gas fees and
+              You&apos;re currently on the Sepolia Testnet. For lower gas fees and
               faster transactions, consider switching to Polygon Amoy.
             </div>
             <div
