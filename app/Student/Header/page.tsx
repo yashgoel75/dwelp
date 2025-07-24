@@ -196,6 +196,7 @@ const Header = () => {
                   />
                 </div>
                 <div
+                  className="hover:cursor-pointer"
                   title={
                     theme === "dark"
                       ? "Switch to Light Mode"
@@ -233,6 +234,7 @@ const Header = () => {
             </div>
             <div className="flex gap-3">
               <div
+                className="hover:cursor-pointer"
                 title={
                   theme === "dark"
                     ? "Switch to Light Mode"
