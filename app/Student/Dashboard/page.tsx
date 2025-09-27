@@ -18,8 +18,8 @@ const Dashboard = () => {
   }
   const [currentChainId, setCurrentChainId] = useState(80002);
   const DWELP_ADDRESS_POLYGONAMOY =
-    "0x82f7af6b80b556bf98a1ff0859d9fb2581633235";
-  const DWELP_ADDRESS_SEPOLIA = "0x9c1aff609b8bae87bb6869a97a2672e0d3f337e6";
+    "0x604cD9d6B85E5b6139026DEfca10055da4F229e3";
+  const DWELP_ADDRESS_SEPOLIA = "0x686ac3ebba672c0e6eb9835f3de35ae6075bd211";
   const [DWELP_ADDRESS, setDWELP_ADDRESS] = useState("0x");
   const [chainIdToUse, setChainIdToUse] = useState(80002);
   const [selectedChain, setSelectedChain] = useState("Polygon Amoy");
