@@ -343,7 +343,7 @@ const Dashboard = () => {
   const [uploading, setUploading] = useState(false);
 
   const ai = new GoogleGenAI({
-    apiKey: process.env.GOOGLE_GENAI_API_KEY || "",
+    apiKey: process.env.NEXT_PUBLIC_GOOGLE_GENAI_API_KEY || "",
   });
 
   const [response, setResponse] = useState<string>("");
